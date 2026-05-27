@@ -2,10 +2,20 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Rocket, CodeXml, Clock, BrainCircuit, Box } from 'lucide-react';
 import MagneticIcon from '../Common/MagneticIcon';
+import BlurText from '../Common/BlurText';
 import HeroBackground from './HeroBackground';
 import './Hero.css';
 
 const Hero = () => {
+    const handleNavClick = (e, href) => {
+        e.preventDefault();
+        if (window.lenis) {
+            window.lenis.scrollTo(href, { offset: -80 });
+        } else {
+            document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -33,7 +43,7 @@ const Hero = () => {
     };
 
     return (
-        <section className="hero-section" aria-label="Hero — Craft and Launch with Velocity">
+        <section className="hero-section" id="home" aria-label="Hero — Craft and Launch with Velocity">
             {/* 3D Cursor-Responsive Background */}
             <HeroBackground />
 
@@ -60,31 +70,40 @@ const Hero = () => {
                 {/* Main Content Split Layout */}
                 <div className="hero-main">
                     {/* Left Column: Headline */}
-                    <motion.div className="hero-left" variants={itemVariants}>
+                    <div className="hero-left">
                         <h1 className="hero-title">
-                            Craft <span className="glass-icon glass-icon-green"><CodeXml size={24} /></span> and Launch <br />
-                            with Velocity
-                            <MagneticIcon className="glass-icon glass-icon-silver">
+                            <BlurText as="span" text="Craft " delay={50} style={{ verticalAlign: 'middle' }} />
+                            <span className="glass-icon glass-icon-green" style={{ verticalAlign: 'middle' }}><CodeXml size={24} /></span> 
+                            <BlurText as="span" text=" and Launch" delay={50} style={{ verticalAlign: 'middle' }} />
+                            <br />
+                            <BlurText as="span" text="with Velocity " delay={50} style={{ verticalAlign: 'middle' }} />
+                            <MagneticIcon className="glass-icon glass-icon-silver" style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
                                 <Rocket size={24} fill="#0f172a" />
                             </MagneticIcon>
                         </h1>
-                    </motion.div>
+                    </div>
 
                     {/* Right Column: Subheadline and CTA */}
-                    <motion.div className="hero-right" variants={itemVariants}>
-                        <p className="hero-subtitle">
-                            Turn your vision into a stunning digital experience. We manage the heavy lifting of design and code, letting you focus on scaling.
-                        </p>
-                        <div className="liquid-badge-wrapper hero-cta-wrapper">
-                            <div className="liquid-badge">
-                                <span className="badge-content-text">Start your project ↗</span>
-                                <div className="liquid-container">
-                                    <div className="liquid-wave wave-1"></div>
-                                    <div className="liquid-wave wave-2"></div>
+                    <div className="hero-right">
+                        <BlurText 
+                            className="hero-subtitle"
+                            text="Turn your vision into a stunning digital experience. We manage the heavy lifting of design and code, letting you focus on scaling."
+                            delay={30}
+                            direction="top"
+                            animateBy="words"
+                        />
+                        <a href="#contact" style={{ textDecoration: 'none' }} onClick={(e) => handleNavClick(e, '#contact')}>
+                            <div className="liquid-badge-wrapper hero-cta-wrapper">
+                                <div className="liquid-badge">
+                                    <span className="badge-content-text">Start your project ↗</span>
+                                    <div className="liquid-container">
+                                        <div className="liquid-wave wave-1"></div>
+                                        <div className="liquid-wave wave-2"></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </motion.div>
+                        </a>
+                    </div>
                 </div>
 
                 {/* Bottom Features Glass Bar */}

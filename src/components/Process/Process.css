@@ -1,11 +1,20 @@
 .process-section {
-    padding: 160px 20px 200px;
-    display: flex;
-    justify-content: center;
+    height: 300vh; /* Creates scrollable space for Framer Motion */
+    padding: 0;
+    display: block;
     position: relative;
     z-index: 10;
-    /* Reverting to Teal while keeping the "perfect" 40% bottom-up structure and lining */
     background: linear-gradient(to top, #e6fffa 0%, #ffffff 600px);
+}
+
+.sticky-glass-wrapper {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
     overflow: hidden;
 }
 
@@ -44,20 +53,29 @@
     max-width: 1140px;
     /* Reduced from 1240px */
     /* Darker, frostier dusty-space background */
-    background: linear-gradient(135deg, rgba(235, 238, 245, 0.8) 0%, rgba(226, 232, 240, 0.5) 100%);
-    backdrop-filter: blur(50px) saturate(120%);
-    -webkit-backdrop-filter: blur(50px) saturate(120%);
+    background: linear-gradient(135deg, rgba(235, 238, 245, 0.95) 0%, rgba(226, 232, 240, 0.90) 100%);
+    /* Removing backdrop-filter to prevent scroll stuttering */
     border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: 32px;
-    /* Reduced slightly */
-    padding: 60px 50px;
-    /* Reduced padding */
+    padding: 60px 50px 0;
+    display: flex;
+    flex-direction: column;
     box-shadow:
         0 40px 80px rgba(0, 0, 0, 0.08),
         inset 0 0 0 1px rgba(255, 255, 255, 0.8),
         inset 0 0 40px rgba(255, 255, 255, 0.3);
     position: relative;
     overflow: hidden;
+    height: 85vh;
+    min-height: 600px;
+    max-height: 900px;
+}
+
+.process-scroll-area {
+    flex: 1;
+    overflow: hidden; /* Prevent native scrolling, Framer Motion handles it */
+    padding-bottom: 250px; /* Space to scroll past the blur */
+    position: relative;
 }
 
 /* Subtle top glow to give that cyan/blue atmospheric space touch */
@@ -68,7 +86,7 @@
     width: 600px;
     height: 300px;
     background: radial-gradient(circle, rgba(167, 243, 208, 0.4) 0%, rgba(186, 230, 253, 0.3) 50%, transparent 80%);
-    filter: blur(80px);
+    filter: blur(50px);
     z-index: 0;
     pointer-events: none;
 }
@@ -78,13 +96,12 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 80px;
-    /* Reduced from 120px */
+    margin-bottom: 40px;
     position: relative;
     z-index: 2;
     border-bottom: 1px solid rgba(148, 163, 184, 0.3);
-    padding-bottom: 40px;
-    /* Reduced */
+    padding-bottom: 30px;
+    flex-shrink: 0;
 }
 
 .process-header-left {
@@ -256,7 +273,7 @@
     border: 1px solid rgba(255, 255, 255, 0.8);
     /* Brighter icy border */
     /* Frosted glassy pill */
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(226, 232, 240, 0.2) 100%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(226, 232, 240, 0.90) 100%);
     box-shadow:
         0 10px 40px rgba(14, 165, 233, 0.08),
         /* Subtle blue outer glow */
@@ -265,7 +282,6 @@
     /* Stronger bright inner top glow */
     position: relative;
     overflow: hidden;
-    backdrop-filter: blur(20px);
 }
 
 /* Dotted grid pattern for background */
@@ -619,7 +635,7 @@
 /* RESPONSIVE */
 @media (max-width: 1024px) {
     .process-glass-container {
-        padding: 60px 40px;
+        padding: 60px 40px 0;
     }
 
     .process-header {
@@ -664,8 +680,12 @@
     }
 
     .process-glass-container {
-        padding: 30px 16px;
+        padding: 30px 16px 0;
         border-radius: 20px;
+    }
+
+    .process-scroll-area {
+        padding-bottom: 150px;
     }
 
     .process-headline {

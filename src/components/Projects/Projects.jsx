@@ -1,7 +1,8 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, Code2, Layers, Smartphone, Sparkles } from 'lucide-react';
 import MagneticIcon from '../Common/MagneticIcon';
+import ScrollStack, { ScrollStackItem } from '../Common/ScrollStack';
 import './Projects.css';
 
 const projects = [
@@ -49,16 +50,9 @@ const projects = [
     },
 ];
 
-const ProjectCard = ({ project, index, isLast }) => {
+const ProjectCard = ({ project, index }) => {
     return (
-        <div
-            className={`stack-card card-${project.color} ${index % 2 !== 0 ? 'image-right' : ''}`}
-            style={{ 
-                top: `${index * 25 + 100}px`, 
-                zIndex: index + 1,
-                marginBottom: isLast ? '10vh' : '40vh' 
-            }}
-        >
+        <div className={`stack-card card-${project.color} ${index % 2 !== 0 ? 'image-right' : ''}`}>
             <div className="project-card-glow" />
 
             {/* Image side */}
@@ -128,8 +122,6 @@ const ProjectCard = ({ project, index, isLast }) => {
 };
 
 const Projects = () => {
-    const sectionRef = useRef(null);
-
     const fadeUp = {
         hidden: { opacity: 0, y: 40 },
         visible: {
@@ -140,7 +132,7 @@ const Projects = () => {
     };
 
     return (
-        <section className="projects-section" id="projects" ref={sectionRef} aria-label="Our portfolio projects">
+        <section className="projects-section" id="projects" aria-label="Our portfolio projects">
             <div className="projects-glow-bg" />
 
             {/* Header */}
@@ -168,16 +160,25 @@ const Projects = () => {
                 </p>
             </motion.div>
 
-            {/* Stacking card list */}
+            {/* ScrollStack card list */}
             <div className="stack-list">
-                {projects.map((project, index) => (
-                    <ProjectCard
-                        key={project.title}
-                        project={project}
-                        index={index}
-                        isLast={index === projects.length - 1}
-                    />
-                ))}
+                <ScrollStack
+                    useWindowScroll
+                    itemDistance={500}
+                    itemScale={0.03}
+                    itemStackDistance={35}
+                    stackPosition="25%"
+                    scaleEndPosition="15%"
+                    baseScale={0.88}
+                    blurAmount={2}
+                    className="projects-scroll-stack"
+                >
+                    {projects.map((project, index) => (
+                        <ScrollStackItem key={project.title} itemClassName={`project-stack-item project-stack-item-${index}`}>
+                            <ProjectCard project={project} index={index} />
+                        </ScrollStackItem>
+                    ))}
+                </ScrollStack>
             </div>
         </section>
     );

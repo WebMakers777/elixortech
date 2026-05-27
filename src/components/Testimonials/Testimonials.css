@@ -1,0 +1,105 @@
+.testimonials-section {
+    position: relative;
+    padding: 160px 2rem 100px;
+    overflow: hidden;
+    background: linear-gradient(to top, #e0e7ff 0%, #ffffff 600px);
+    z-index: 20;
+}
+
+/* Granular Pixelated Texture - DISABLED for scroll performance.
+   The inline SVG feTurbulence filter is expensive to composite during scroll. */
+.testimonials-section::before {
+    display: none;
+}
+
+.testimonials-bg-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.15;
+    z-index: 0;
+    pointer-events: none;
+    will-change: transform;
+}
+
+.testimonials-section .glow-1 {
+    top: 20%;
+    left: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, var(--color-primary), transparent 70%);
+}
+
+.testimonials-section .glow-2 {
+    bottom: -10%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, var(--color-secondary), transparent 70%);
+}
+
+.testimonials-header {
+    max-width: 800px;
+    margin: 0 auto 80px;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.testimonials-badge {
+    margin-bottom: 24px;
+}
+
+.testimonials-headline {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--color-text-primary, #111);
+    margin-bottom: 24px;
+}
+
+.testimonials-subtext {
+    font-size: 1.25rem;
+    color: var(--color-text-secondary, #555);
+    line-height: 1.6;
+    max-width: 600px;
+}
+
+.testimonials-grid {
+    display: flex;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 650px;
+    position: relative;
+    z-index: 10;
+}
+
+.testimonials-col {
+    flex: 1;
+    height: 100%;
+}
+
+@media (max-width: 1024px) {
+    .hidden-tablet {
+        display: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .hidden-mobile {
+        display: none !important;
+    }
+    
+    .testimonials-section {
+        padding: 100px 1rem 80px;
+    }
+    
+    .testimonials-grid {
+        height: 500px;
+    }
+}

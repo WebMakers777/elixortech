@@ -19,7 +19,7 @@ const Features = () => {
     };
 
     return (
-        <section className="features-section" id="process" aria-label="Why choose Elixor Technologies">
+        <section className="features-section" id="features" aria-label="Why choose Elixor Technologies">
 
             {/* Soft Glow behind the title */}
             <div className="section-glow"></div>

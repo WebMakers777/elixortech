@@ -24,18 +24,22 @@ const Footer = () => {
                                 technical debt and automatically accelerate your momentum.
                             </p>
                             <div className="cta-actions">
-                                <div className="liquid-badge-wrapper cta-main-btn">
-                                    <div className="liquid-badge">
-                                        <span className="badge-content-text">Get started <ArrowUpRight size={16} /></span>
-                                        <div className="liquid-container">
-                                            <div className="liquid-wave wave-1"></div>
-                                            <div className="liquid-wave wave-2"></div>
+                                <a href="#contact" style={{ textDecoration: 'none' }}>
+                                    <div className="liquid-badge-wrapper cta-main-btn">
+                                        <div className="liquid-badge">
+                                            <span className="badge-content-text">Get started <ArrowUpRight size={16} /></span>
+                                            <div className="liquid-container">
+                                                <div className="liquid-wave wave-1"></div>
+                                                <div className="liquid-wave wave-2"></div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <button className="cta-secondary-btn">
-                                    Watch how it works <span className="play-icon">▶</span>
-                                </button>
+                                </a>
+                                <a href="#process" style={{ textDecoration: 'none' }}>
+                                    <button className="cta-secondary-btn">
+                                        Watch how it works <span className="play-icon">▶</span>
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -68,9 +72,9 @@ const Footer = () => {
                                 <h4>Agency</h4>
                                 <a href="#home">Home</a>
                                 <a href="#features">Features</a>
-                                <a href="#pricing">Pricing</a>
+                                <a href="#process">Process</a>
+                                <a href="#projects">Projects</a>
                                 <a href="#contact">Contact</a>
-                                <a href="#blog">Blog</a>
                             </div>
                             <div className="footer-col">
                                 <h4>Support</h4>

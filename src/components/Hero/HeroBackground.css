@@ -20,7 +20,7 @@
     width: 60vw;
     height: 60vw;
     border-radius: 50%;
-    filter: blur(120px);
+    filter: blur(60px);
     opacity: 0.25;
     mix-blend-mode: screen;
     pointer-events: none;
@@ -60,15 +60,9 @@
     z-index: 2;
 }
 
-/* High-end Film Grain/Noise overlay */
+/* Film Grain/Noise overlay - DISABLED for scroll performance */
 .hero-3d-noise {
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.08;
-    pointer-events: none;
-    mix-blend-mode: overlay;
-    z-index: 3;
+    display: none;
 }
 
 /* Fade seamlessly into the site's main cyan-to-white gradient */

@@ -43,7 +43,7 @@
 .contact-bg-glow {
     position: absolute;
     border-radius: 50%;
-    filter: blur(120px);
+    filter: blur(60px);
     opacity: 0.15;
     z-index: 0;
     pointer-events: none;
@@ -112,25 +112,11 @@
     max-width: 90%;
 }
 
-.contact-saying {
-    margin-top: 2rem;
-    padding: 2rem;
-    background: rgba(0, 0, 0, 0.02);
-    border-left: 4px solid #0284c7;
-    border-radius: 0 1rem 1rem 0;
-    font-size: 1.25rem;
-    font-style: italic;
-    color: var(--color-text-primary, #111);
-    position: relative;
-}
-
-.saying-author {
-    display: block;
+.contact-testimonials {
     margin-top: 1rem;
-    font-size: 0.875rem;
-    font-style: normal;
-    color: #0284c7;
-    font-weight: 600;
+    height: 450px;
+    width: 100%;
+    position: relative;
 }
 
 /* Right Side Styles & Form */

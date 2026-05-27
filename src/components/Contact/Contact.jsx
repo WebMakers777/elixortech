@@ -2,9 +2,31 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send, Calendar, Clock, User, Mail, MessageSquare, Loader2, CheckCircle2 } from 'lucide-react';
 import MagneticIcon from '../Common/MagneticIcon';
+import { TestimonialsColumn } from '../Common/TestimonialsColumn';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './Contact.css';
+
+const testimonials = [
+  {
+    text: "Elixor Technologies delivered our MVP 3 weeks ahead of schedule. The code quality was simply outstanding.",
+    image: "https://i.pravatar.cc/150?img=11",
+    name: "Sarah Jenkins",
+    role: "Founder, TechFlow"
+  },
+  {
+    text: "Their deep understanding of scalable architecture saved us thousands of dollars in server costs.",
+    image: "https://i.pravatar.cc/150?img=32",
+    name: "Michael Chen",
+    role: "CTO, DataSync"
+  },
+  {
+    text: "The best development team I've ever worked with. Communication was flawless and execution was perfect.",
+    image: "https://i.pravatar.cc/150?img=47",
+    name: "Emily Rodriguez",
+    role: "CEO, InnovateInc"
+  }
+];
 
 const Contact = () => {
     // Form State
@@ -115,10 +137,11 @@ const Contact = () => {
                         we have the velocity to build it.
                     </p>
 
-                    <div className="contact-saying">
-                        "The best way to predict the future is to invent it."
-                        <span className="saying-author">— Alan Kay</span>
-                    </div>
+                    <TestimonialsColumn 
+                        testimonials={testimonials} 
+                        duration={20}
+                        className="contact-testimonials" 
+                    />
                 </motion.div>
 
                 {/* Right Side: The Form */}

@@ -1,21 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
 import Navbar from './components/Navbar/Navbar';
-import Hero from './components/Hero/Hero';
-import Features from './components/Features/Features';
-import Process from './components/Process/Process';
-import Execution from './components/Execution/Execution';
-import Projects from './components/Projects/Projects';
-import FAQ from './components/FAQ/FAQ';
-import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
 import AmbientBackground from './components/AmbientBackground/AmbientBackground';
-import CustomCursor from './components/CustomCursor/CustomCursor';
 import Loader from './components/Loader/Loader';
+import Home from './pages/Home';
+import Story from './pages/Story';
+import Team from './pages/Team';
+import Partners from './pages/Partners';
+import ProjectsPage from './pages/Projects';
+import FAQPage from './pages/FAQPage';
 import './App.css';
+
+// Lazy-load the heavy WebGL fluid cursor so it doesn't block initial render
+const SplashCursor = lazy(() => import('./components/Common/SplashCursor'));
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    if (window.lenis) {
+      window.lenis.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname]);
+  return null;
+}
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [showCursor, setShowCursor] = useState(false);
 
   useEffect(() => {
     // Hide the loader after 1.5 seconds
@@ -23,6 +38,19 @@ function App() {
       setLoading(false);
     }, 1500);
     return () => clearTimeout(timer);
+  }, []);
+
+  // Only enable the heavy WebGL cursor on capable devices
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isTouch = window.matchMedia('(pointer: coarse)').matches;
+    const isLowEnd = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+    
+    if (!prefersReducedMotion && !isTouch && !isLowEnd) {
+      // Delay loading the cursor until after everything else is rendered
+      const t = setTimeout(() => setShowCursor(true), 2000);
+      return () => clearTimeout(t);
+    }
   }, []);
   useEffect(() => {
     // Initialize Lenis for buttery smooth scrolling, which makes
@@ -36,7 +64,7 @@ function App() {
     }
 
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 0.8,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       direction: 'vertical',
       gestureDirection: 'vertical',
@@ -45,6 +73,9 @@ function App() {
       smoothTouch: false,
       infinite: false,
     });
+    
+    // Expose globally so Navbar can use it for smooth section jumping
+    window.lenis = lenis;
 
     // Tie Lenis scrolling to requestAnimationFrame
     function raf(time) {
@@ -54,6 +85,7 @@ function App() {
     requestAnimationFrame(raf);
 
     return () => {
+      window.lenis = null;
       lenis.destroy();
     };
   }, []);
@@ -63,8 +95,26 @@ function App() {
       {/* Premium Loader Overlay */}
       <Loader isLoading={loading} />
 
-      {/* Global Interactive Elements */}
-      <CustomCursor />
+      {/* Global Interactive Elements — only on capable devices */}
+      {showCursor && (
+        <Suspense fallback={null}>
+          <SplashCursor
+            SIM_RESOLUTION={32}
+            DYE_RESOLUTION={512}
+            PRESSURE_ITERATIONS={10}
+            DENSITY_DISSIPATION={6.0}
+            VELOCITY_DISSIPATION={3.0}
+            PRESSURE={0.1}
+            CURL={2}
+            SPLAT_RADIUS={0.1}
+            SPLAT_FORCE={3000}
+            COLOR_UPDATE_SPEED={10}
+            SHADING
+            RAINBOW_MODE={false}
+            COLOR="#A855F7"
+          />
+        </Suspense>
+      )}
 
       {/* Global pixelated grid and grain */}
       <div className="pixel-overlay"></div>
@@ -81,16 +131,16 @@ function App() {
       <AmbientBackground />
 
       <Navbar />
+      <ScrollToTop />
 
-      <main className="main-content">
-        <Hero />
-        <Features />
-        <Process />
-        <Execution />
-        <Projects />
-        <FAQ />
-        <Contact />
-      </main>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/story" element={<Story />} />
+        <Route path="/projects" element={<ProjectsPage />} />
+        <Route path="/faq" element={<FAQPage />} />
+        <Route path="/team" element={<Team />} />
+        <Route path="/partners" element={<Partners />} />
+      </Routes>
 
       <Footer />
     </div>

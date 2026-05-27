@@ -15,7 +15,7 @@
 .wisp {
     position: absolute;
     border-radius: 50%;
-    filter: blur(120px);
+    filter: blur(60px);
     opacity: 0;
     will-change: transform, opacity;
     mix-blend-mode: multiply;

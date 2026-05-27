@@ -1,7 +1,8 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Rocket, MousePointer2, Heart, Search, ClipboardList, Lightbulb, Map, LayoutPanelLeft, Code2, Target, Users } from 'lucide-react';
 import MagneticIcon from '../Common/MagneticIcon';
+import GradualBlur from '../Common/GradualBlur';
 import './Process.css';
 
 const Process = () => {
@@ -20,14 +21,24 @@ const Process = () => {
         visible: { opacity: 1, x: 0, transition: { duration: 0.6, type: "spring", stiffness: 80 } }
     };
 
+    const sectionRef = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: sectionRef,
+        offset: ["start start", "end end"]
+    });
+
+    // Translate the steps upwards as the user scrolls down the page
+    const y = useTransform(scrollYProgress, [0, 1], ["0%", "-68%"]);
+
     return (
-        <section className="process-section" id="detailed-process" aria-label="Our development process">
-            <div className="process-glass-container">
+        <section ref={sectionRef} className="process-section" id="process" aria-label="Our development process">
+            <div className="sticky-glass-wrapper">
+                <div className="process-glass-container">
 
                 {/* Top Glowing Mesh */}
                 <div className="process-top-glow"></div>
 
-                {/* Header */}
+                {/* Header (Fixed at top) */}
                 <motion.div
                     className="process-header"
                     initial="hidden"
@@ -63,8 +74,9 @@ const Process = () => {
                     </div>
                 </motion.div>
 
-                {/* Steps List */}
-                <div className="process-steps">
+                {/* Steps List (Animated by page scroll) */}
+                <div className="process-scroll-area">
+                    <motion.div className="process-steps" style={{ y }}>
 
                     {/* Step 01 */}
                     <motion.div
@@ -222,8 +234,20 @@ const Process = () => {
                             </div>
                         </motion.div>
                     </motion.div>
+                    </motion.div>
                 </div>
 
+                <GradualBlur
+                    target="parent"
+                    position="bottom"
+                    height="12rem"
+                    strength={2}
+                    divCount={3}
+                    curve="ease-out"
+                    exponential
+                    opacity={1}
+                />
+            </div>
             </div>
         </section>
     );
