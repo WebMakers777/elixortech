@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import GlassSurface from '../components/Common/GlassSurface';
 import './PageTheme.css';
@@ -21,6 +21,11 @@ const fadeUp = {
 };
 
 const Partners = () => {
+  useEffect(() => {
+    document.title = 'Partners | Elixor Technologies';
+    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Our trusted technology and business partners helping deliver exceptional software solutions globally.');
+  }, []);
+
   return (
     <div className="page-container">
       <motion.div

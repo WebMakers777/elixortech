@@ -3,18 +3,21 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
-import AmbientBackground from './components/AmbientBackground/AmbientBackground';
 import Loader from './components/Loader/Loader';
 import Home from './pages/Home';
-import Story from './pages/Story';
-import Team from './pages/Team';
-import Partners from './pages/Partners';
-import ProjectsPage from './pages/Projects';
-import FAQPage from './pages/FAQPage';
 import './App.css';
 
-// Lazy-load the heavy WebGL fluid cursor so it doesn't block initial render
+// Lazy-load the WebGL fluid cursor
 const SplashCursor = lazy(() => import('./components/Common/SplashCursor'));
+
+// Lazy-load all sub-pages for code splitting
+const Story = lazy(() => import('./pages/Story'));
+const Team = lazy(() => import('./pages/Team'));
+const Partners = lazy(() => import('./pages/Partners'));
+const ProjectsPage = lazy(() => import('./pages/Projects'));
+const FAQPage = lazy(() => import('./pages/FAQPage'));
+const ContactUs = lazy(() => import('./pages/ContactUs'));
+const Integrations = lazy(() => import('./pages/Integrations'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -33,21 +36,19 @@ function App() {
   const [showCursor, setShowCursor] = useState(false);
 
   useEffect(() => {
-    // Hide the loader after 1.5 seconds
     const timer = setTimeout(() => {
       setLoading(false);
     }, 1500);
     return () => clearTimeout(timer);
   }, []);
 
-  // Only enable the heavy WebGL cursor on capable devices
+  // Only enable the WebGL cursor on capable desktop devices
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isTouch = window.matchMedia('(pointer: coarse)').matches;
     const isLowEnd = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
     
     if (!prefersReducedMotion && !isTouch && !isLowEnd) {
-      // Delay loading the cursor until after everything else is rendered
       const t = setTimeout(() => setShowCursor(true), 2000);
       return () => clearTimeout(t);
     }
@@ -64,20 +65,18 @@ function App() {
     }
 
     const lenis = new Lenis({
-      duration: 0.8,
+      duration: 0.6,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       direction: 'vertical',
       gestureDirection: 'vertical',
       smooth: true,
-      mouseMultiplier: 1,
+      mouseMultiplier: 0.8,
       smoothTouch: false,
       infinite: false,
     });
     
-    // Expose globally so Navbar can use it for smooth section jumping
     window.lenis = lenis;
 
-    // Tie Lenis scrolling to requestAnimationFrame
     function raf(time) {
       lenis.raf(time);
       requestAnimationFrame(raf);
@@ -95,13 +94,13 @@ function App() {
       {/* Premium Loader Overlay */}
       <Loader isLoading={loading} />
 
-      {/* Global Interactive Elements — only on capable devices */}
+      {/* WebGL Fluid Cursor — only on capable devices */}
       {showCursor && (
         <Suspense fallback={null}>
           <SplashCursor
             SIM_RESOLUTION={32}
             DYE_RESOLUTION={512}
-            PRESSURE_ITERATIONS={10}
+            PRESSURE_ITERATIONS={8}
             DENSITY_DISSIPATION={6.0}
             VELOCITY_DISSIPATION={3.0}
             PRESSURE={0.1}
@@ -116,31 +115,21 @@ function App() {
         </Suspense>
       )}
 
-      {/* Global pixelated grid and grain */}
-      <div className="pixel-overlay"></div>
-      <div className="noise-overlay"></div>
-
-      {/* Wavy animated blobs */}
-      <div className="wavy-background">
-        <div className="blob blob-1"></div>
-        <div className="blob blob-2"></div>
-        <div className="blob blob-3"></div>
-      </div>
-
-      {/* Subtle ambient floating elements */}
-      <AmbientBackground />
-
       <Navbar />
       <ScrollToTop />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/story" element={<Story />} />
-        <Route path="/projects" element={<ProjectsPage />} />
-        <Route path="/faq" element={<FAQPage />} />
-        <Route path="/team" element={<Team />} />
-        <Route path="/partners" element={<Partners />} />
-      </Routes>
+      <Suspense fallback={<div style={{minHeight:'100vh'}} />}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/story" element={<Story />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/faq" element={<FAQPage />} />
+          <Route path="/team" element={<Team />} />
+          <Route path="/partners" element={<Partners />} />
+          <Route path="/integrations" element={<Integrations />} />
+          <Route path="/contact" element={<ContactUs />} />
+        </Routes>
+      </Suspense>
 
       <Footer />
     </div>

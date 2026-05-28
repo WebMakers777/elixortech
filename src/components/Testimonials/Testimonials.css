@@ -1,25 +1,31 @@
 .testimonials-section {
+    contain: content;
     position: relative;
-    padding: 160px 2rem 100px;
+    padding: 60px 2rem 80px;
     overflow: hidden;
-    background: linear-gradient(to top, #e0e7ff 0%, #ffffff 600px);
+    background: #0f172a; /* Dark background to suit the evening mountain */
     z-index: 20;
 }
 
-/* Granular Pixelated Texture - DISABLED for scroll performance.
-   The inline SVG feTurbulence filter is expensive to composite during scroll. */
+/* Mountain Background - use static background, no blur filter */
 .testimonials-section::before {
-    display: none;
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('/review-bg.webp');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.35;
+    z-index: 0;
+    pointer-events: none;
 }
 
 .testimonials-bg-glow {
     position: absolute;
     border-radius: 50%;
-    filter: blur(60px);
-    opacity: 0.15;
+    opacity: 0.1;
     z-index: 0;
     pointer-events: none;
-    will-change: transform;
 }
 
 .testimonials-section .glow-1 {
@@ -58,13 +64,13 @@
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: -0.03em;
-    color: var(--color-text-primary, #111);
+    color: #f8fafc; /* White text for dark background */
     margin-bottom: 24px;
 }
 
 .testimonials-subtext {
     font-size: 1.25rem;
-    color: var(--color-text-secondary, #555);
+    color: #cbd5e1; /* Light gray text for dark background */
     line-height: 1.6;
     max-width: 600px;
 }
@@ -96,7 +102,7 @@
     }
     
     .testimonials-section {
-        padding: 100px 1rem 80px;
+        padding: 60px 1rem 80px;
     }
     
     .testimonials-grid {

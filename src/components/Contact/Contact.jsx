@@ -1,239 +1,171 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Calendar, Clock, User, Mail, MessageSquare, Loader2, CheckCircle2 } from 'lucide-react';
-import MagneticIcon from '../Common/MagneticIcon';
-import { TestimonialsColumn } from '../Common/TestimonialsColumn';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import { Loader2, CheckCircle2 } from 'lucide-react';
 import './Contact.css';
 
-const testimonials = [
-  {
-    text: "Elixor Technologies delivered our MVP 3 weeks ahead of schedule. The code quality was simply outstanding.",
-    image: "https://i.pravatar.cc/150?img=11",
-    name: "Sarah Jenkins",
-    role: "Founder, TechFlow"
-  },
-  {
-    text: "Their deep understanding of scalable architecture saved us thousands of dollars in server costs.",
-    image: "https://i.pravatar.cc/150?img=32",
-    name: "Michael Chen",
-    role: "CTO, DataSync"
-  },
-  {
-    text: "The best development team I've ever worked with. Communication was flawless and execution was perfect.",
-    image: "https://i.pravatar.cc/150?img=47",
-    name: "Emily Rodriguez",
-    role: "CEO, InnovateInc"
-  }
-];
-
 const Contact = () => {
-    // Form State
     const [formData, setFormData] = useState({
-        name: '',
+        firstName: '',
+        lastName: '',
         email: '',
-        date: null,
-        time: null,
-        idea: ''
+        phone: '',
+        company: '',
+        role: '',
+        country: '',
+        inquiryType: '',
+        message: '',
+        agreeTerms: false
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
 
-    const SCRIPT_URL = import.meta.env.VITE_SCRIPT_URL;
-
     const handleChange = (e) => {
-        const { id, value } = e.target;
-        setFormData(prev => ({ ...prev, [id]: value }));
+        const { id, value, type, checked } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [id]: type === 'checkbox' ? checked : value
+        }));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-
-        try {
-            const formattedDate = formData.date ? formData.date.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
-            const formattedTime = formData.time ? formData.time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) : '';
-
-            const payload = {
-                ...formData,
-                date: formattedDate,
-                time: formattedTime
-            };
-
-            const response = await fetch(SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors', // Important for Google Apps Script
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(payload)
-            });
-
-            // Since mode is no-cors, we won't get a proper JSON response back, 
-            // but if it didn't throw an error, we assume success.
-            setIsSuccess(true);
-            setFormData({ name: '', email: '', date: null, time: null, idea: '' });
-
-            // Revert success message after 5 seconds
-            setTimeout(() => setIsSuccess(false), 5000);
-
-        } catch (error) {
-            console.error('Error submitting form:', error);
-            alert('There was an error submitting your request. Please try again.');
-        } finally {
+        // Mocking submission
+        setTimeout(() => {
             setIsSubmitting(false);
-        }
+            setIsSuccess(true);
+            setFormData({
+                firstName: '', lastName: '', email: '', phone: '', company: '', role: '',
+                country: '', inquiryType: '', message: '', agreeTerms: false
+            });
+            setTimeout(() => setIsSuccess(false), 5000);
+        }, 1500);
     };
+
     const fadeUp = {
         hidden: { opacity: 0, y: 30 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.6, type: "spring", stiffness: 80 } }
     };
 
-    const slideRight = {
-        hidden: { opacity: 0, x: -50 },
-        visible: { opacity: 1, x: 0, transition: { duration: 0.6, type: "spring", stiffness: 80 } }
-    };
-
-    const slideLeft = {
-        hidden: { opacity: 0, x: 50 },
-        visible: { opacity: 1, x: 0, transition: { duration: 0.6, type: "spring", stiffness: 80 } }
+    const fadeScale = {
+        hidden: { opacity: 0, scale: 0.95 },
+        visible: { opacity: 1, scale: 1, transition: { duration: 0.8, type: "spring" } }
     };
 
     return (
-        <section className="contact-section" id="contact" aria-label="Schedule a meeting with Elixor Technologies">
-            {/* Ambient Background Elements */}
+        <section className="contact-section" id="contact" aria-label="Contact Elixor Technologies">
+            {/* Ambient Background Elements for Glass Theme */}
             <div className="contact-bg-glow glow-1"></div>
             <div className="contact-bg-glow glow-2"></div>
 
             <div className="contact-container">
-                {/* Left Side: Motivational Text & Info */}
+                {/* Left Side: Form */}
                 <motion.div
                     className="contact-left"
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-50px" }}
-                    variants={slideRight}
+                    variants={fadeUp}
                 >
-                    <div className="liquid-badge-wrapper contact-badge">
-                        <div className="liquid-badge">
-                            <span className="badge-content-text">Let's Build The Future</span>
-                            <div className="liquid-container">
-                                <div className="liquid-wave wave-1"></div>
-                                <div className="liquid-wave wave-2"></div>
-                            </div>
-                        </div>
+                    <div className="support-badge">
+                        <span className="dot"></span> Start a Project
                     </div>
 
                     <h2 className="contact-headline">
-                        Ready to make <br />
-                        a <span className="text-gradient">dent in the universe?</span>
+                        Let's turn your vision<br />
+                        into reality.
                     </h2>
 
                     <p className="contact-motivational">
-                        Some ideas are too important to wait. Whether you're a visionary founder
-                        or a scaling enterprise, if you have a product that needs to exist,
-                        we have the velocity to build it.
+                        Whether you need a launch-ready MVP or a scalable SaaS platform, our team of expert engineers is ready to build it. Reach out to get started.
                     </p>
 
-                    <TestimonialsColumn 
-                        testimonials={testimonials} 
-                        duration={20}
-                        className="contact-testimonials" 
-                    />
+                    <form className="elixor-form" onSubmit={handleSubmit}>
+                        <div className="form-grid">
+                            <div className="input-group">
+                                <input type="text" id="firstName" value={formData.firstName} onChange={handleChange} placeholder="First name*" required disabled={isSubmitting} />
+                            </div>
+                            <div className="input-group">
+                                <input type="text" id="lastName" value={formData.lastName} onChange={handleChange} placeholder="Last name*" required disabled={isSubmitting} />
+                            </div>
+                            <div className="input-group">
+                                <input type="email" id="email" value={formData.email} onChange={handleChange} placeholder="Email address*" required disabled={isSubmitting} />
+                            </div>
+                            <div className="input-group">
+                                <input type="tel" id="phone" value={formData.phone} onChange={handleChange} placeholder="Phone Number" disabled={isSubmitting} />
+                            </div>
+                            <div className="input-group">
+                                <input type="text" id="company" value={formData.company} onChange={handleChange} placeholder="Company" disabled={isSubmitting} />
+                            </div>
+                            <div className="input-group">
+                                <input type="text" id="role" value={formData.role} onChange={handleChange} placeholder="Your role" disabled={isSubmitting} />
+                            </div>
+                            
+                            <div className="input-group select-wrapper">
+                                <select id="country" value={formData.country} onChange={handleChange} disabled={isSubmitting}>
+                                    <option value="" disabled>Select Country</option>
+                                    <option value="US">United States</option>
+                                    <option value="UK">United Kingdom</option>
+                                    <option value="IN">India</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="AU">Australia</option>
+                                    <option value="OTHER">Other</option>
+                                </select>
+                            </div>
+                            <div className="input-group select-wrapper">
+                                <select id="inquiryType" value={formData.inquiryType} onChange={handleChange} required disabled={isSubmitting}>
+                                    <option value="" disabled>Inquiry Type*</option>
+                                    <option value="mvp">MVP Development</option>
+                                    <option value="saas">SaaS Platform</option>
+                                    <option value="design">UI/UX Design</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className="input-group full-width">
+                            <textarea
+                                id="message"
+                                value={formData.message}
+                                onChange={handleChange}
+                                rows="4"
+                                placeholder="How can we help you?*"
+                                required
+                                disabled={isSubmitting}
+                            ></textarea>
+                        </div>
+
+                        <div className="checkbox-group">
+                            <input type="checkbox" id="agreeTerms" checked={formData.agreeTerms} onChange={handleChange} required disabled={isSubmitting} />
+                            <label htmlFor="agreeTerms">
+                                I agree to the use or processing of my personal information by Elixor Technologies LLP for the purpose of fulfilling this request and in accordance with Elixor Technologies LLP's Privacy Statement.
+                            </label>
+                        </div>
+
+                        <button type="submit" className={`submit-btn ${isSuccess ? 'success' : ''}`} disabled={isSubmitting || isSuccess || !formData.agreeTerms}>
+                            {isSubmitting ? (
+                                <><span>Submitting...</span><Loader2 size={18} className="spin-icon" /></>
+                            ) : isSuccess ? (
+                                <><span>Request Sent!</span><CheckCircle2 size={18} /></>
+                            ) : (
+                                <span>Submit Request</span>
+                            )}
+                        </button>
+                    </form>
                 </motion.div>
 
-                {/* Right Side: The Form */}
+                {/* Right Side: Visual Artwork */}
                 <motion.div
                     className="contact-right"
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-50px" }}
-                    variants={slideLeft}
+                    variants={fadeScale}
                 >
-                    <div className="contact-form-glass">
-                        <div className="form-glow"></div>
-
-                        <form className="elixor-form" onSubmit={handleSubmit}>
-
-                            <div className="form-row">
-                                <div className="input-group">
-                                    <label htmlFor="name"><User size={14} /> Name</label>
-                                    <input type="text" id="name" value={formData.name} onChange={handleChange} placeholder="John Doe" required disabled={isSubmitting} />
-                                </div>
-                                <div className="input-group">
-                                    <label htmlFor="email"><Mail size={14} /> Email</label>
-                                    <input type="email" id="email" value={formData.email} onChange={handleChange} placeholder="john@startup.com" required disabled={isSubmitting} />
-                                </div>
-                            </div>
-
-                            <div className="form-row">
-                                <div className="input-group">
-                                    <label htmlFor="date"><Calendar size={14} /> Preferred Date</label>
-                                    <DatePicker
-                                        selected={formData.date}
-                                        onChange={(date) => setFormData(prev => ({ ...prev, date }))}
-                                        dateFormat="MMMM d, yyyy"
-                                        placeholderText="Select a date"
-                                        className="custom-react-datepicker"
-                                        required
-                                        disabled={isSubmitting}
-                                    />
-                                </div>
-                                <div className="input-group">
-                                    <label htmlFor="time"><Clock size={14} /> Preferred Time</label>
-                                    <DatePicker
-                                        selected={formData.time}
-                                        onChange={(time) => setFormData(prev => ({ ...prev, time }))}
-                                        showTimeSelect
-                                        showTimeSelectOnly
-                                        timeIntervals={15}
-                                        timeCaption="Time"
-                                        dateFormat="h:mm aa"
-                                        placeholderText="Select a time"
-                                        className="custom-react-datepicker"
-                                        required
-                                        disabled={isSubmitting}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="input-group">
-                                <label htmlFor="idea"><MessageSquare size={14} /> The Idea (Crisp & Clear)</label>
-                                <textarea
-                                    id="idea"
-                                    value={formData.idea}
-                                    onChange={handleChange}
-                                    rows="4"
-                                    placeholder="We are building the uber for X. We need it to have AI mapping and real-time sockets..."
-                                    required
-                                    disabled={isSubmitting}
-                                ></textarea>
-                            </div>
-
-                            <button type="submit" className={`submit-btn ${isSuccess ? 'success' : ''}`} disabled={isSubmitting || isSuccess}>
-                                {isSubmitting ? (
-                                    <>
-                                        <span>Submitting...</span>
-                                        <Loader2 size={18} className="spin-icon" />
-                                    </>
-                                ) : isSuccess ? (
-                                    <>
-                                        <span>Request Sent!</span>
-                                        <CheckCircle2 size={18} />
-                                    </>
-                                ) : (
-                                    <>
-                                        <span>Schedule Discovery Call</span>
-                                        <MagneticIcon>
-                                            <Send size={18} />
-                                        </MagneticIcon>
-                                    </>
-                                )}
-                            </button>
-                        </form>
-
+                    <div className="contact-image-glass">
+                        <img src="/contact-abstract.webp" alt="Abstract 3D Artwork" className="contact-artwork" loading="lazy" />
+                        <div className="glass-overlay"></div>
                     </div>
                 </motion.div>
             </div>

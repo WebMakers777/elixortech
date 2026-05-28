@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import MagneticButton from '../Common/MagneticButton';
@@ -19,6 +19,18 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownTimeoutRef = useRef(null);
+
+  const handleMouseEnter = () => {
+    if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
+    setDropdownOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setDropdownOpen(false);
+    }, 150);
+  };
 
   const handleNavClick = (e, path) => {
     e.preventDefault();
@@ -52,7 +64,7 @@ const Navbar = () => {
     { name: 'Features', path: '#features' },
     { name: 'Projects', path: '/projects' },
     { name: 'FAQs', path: '/faq' },
-    { name: 'Contact Us', path: '#contact' },
+    { name: 'Contact Us', path: '/contact' },
   ];
 
   return (
@@ -91,8 +103,8 @@ const Navbar = () => {
               {/* About Us Dropdown Trigger */}
             <li 
               className="nav-dropdown-container"
-              onMouseEnter={() => setDropdownOpen(true)}
-              onMouseLeave={() => setDropdownOpen(false)}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
             >
               <button className="nav-link dropdown-trigger" aria-haspopup="true" aria-expanded={dropdownOpen}>
                 About Us
@@ -119,7 +131,7 @@ const Navbar = () => {
           </ul>
 
           {/* Magnetic Button with an extended hover radius effect */}
-          <a href="#contact" className="navbar-cta-link" style={{ textDecoration: 'none' }} onClick={(e) => handleNavClick(e, '#contact')}>
+          <a href="/contact" className="navbar-cta-link" style={{ textDecoration: 'none' }} onClick={(e) => handleNavClick(e, '/contact')}>
             <MagneticButton className="liquid-badge-wrapper navbar-cta-wrapper" elasticity={0.25} magneticRadius={120}>
               <div className="liquid-badge">
                 <span className="badge-content-text">Book a slot ↗</span>
@@ -142,8 +154,8 @@ const Navbar = () => {
           }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           style={{ overflow: 'hidden', width: '100%' }}
-          onMouseEnter={() => setDropdownOpen(true)}
-          onMouseLeave={() => setDropdownOpen(false)}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
           <div className="mega-menu-grid">
             
@@ -153,16 +165,7 @@ const Navbar = () => {
               <Link to="/story" className="mega-link" onClick={() => setDropdownOpen(false)}>Story</Link>
               <Link to="/team" className="mega-link" onClick={() => setDropdownOpen(false)}>Team</Link>
               <Link to="/partners" className="mega-link" onClick={() => setDropdownOpen(false)}>Partners</Link>
-              <a href="#features" className="mega-link" onClick={(e) => handleNavClick(e, '#features')}>Integrations</a>
-            </div>
-
-            {/* Column 2: Resources */}
-            <div className="mega-col">
-              <h4 className="mega-heading">RESOURCES</h4>
-              <a href="#careers" className="mega-link" onClick={(e) => e.preventDefault()}>Careers</a>
-              <a href="#how-we-work" className="mega-link" onClick={(e) => e.preventDefault()}>How We Work</a>
-              <a href="#history" className="mega-link" onClick={(e) => e.preventDefault()}>History</a>
-              <a href="#advisory" className="mega-link" onClick={(e) => e.preventDefault()}>Advisory</a>
+              <Link to="/integrations" className="mega-link" onClick={() => setDropdownOpen(false)}>Integrations</Link>
             </div>
 
             {/* Column 3: Contact Card */}
@@ -170,7 +173,7 @@ const Navbar = () => {
               <div className="mega-contact-card">
                 <h3 className="mega-contact-title">Get in Touch</h3>
                 <p className="mega-contact-desc">Ready to transform your business? Let's talk.</p>
-                <button className="mega-contact-btn" onClick={(e) => handleNavClick(e, '#contact')}>
+                <button className="mega-contact-btn" onClick={(e) => handleNavClick(e, '/contact')}>
                   Contact Us
                 </button>
               </div>

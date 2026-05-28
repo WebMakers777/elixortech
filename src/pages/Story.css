@@ -273,47 +273,60 @@
   margin: 0;
 }
 
-/* Placeholders */
-.placeholder-image {
+/* Motion Loops */
+.motion-loop-container {
   width: 100%;
   height: 200px;
   border-radius: 12px;
-  background: rgba(0, 0, 0, 0.03);
-  border: 1px dashed rgba(0, 0, 0, 0.15);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: center;
-  justify-content: center;
-  color: rgba(0, 0, 0, 0.4);
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
+  background: rgba(255, 255, 255, 0.2);
 }
 
-.placeholder-image:hover {
-  background: rgba(0, 0, 0, 0.06);
-}
-
-.placeholder-video {
+.workspace-motion-loop {
   width: 100%;
   height: 500px;
   border-radius: 24px;
-  background: rgba(0, 0, 0, 0.03);
-  border: 1px dashed rgba(0, 0, 0, 0.15);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: center;
-  justify-content: center;
-  color: rgba(0, 0, 0, 0.4);
-  font-size: 1.1rem;
-  font-weight: 500;
+  overflow: hidden;
+  position: relative;
+  background: rgba(255, 255, 255, 0.2);
 }
 
-.placeholder-icon {
-  opacity: 0.5;
+.motion-loop-visual {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: center;
+  will-change: transform;
 }
+
+/* Animations for Smooth Loop Effect */
+@keyframes smoothFloat1 {
+  0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
+  50% { transform: translateY(-10px) scale(1.05) rotate(1.5deg); }
+}
+@keyframes smoothFloat2 {
+  0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
+  50% { transform: translateY(-12px) scale(1.02) rotate(-1deg); }
+}
+@keyframes smoothFloat3 {
+  0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
+  50% { transform: translateY(-8px) scale(1.06) rotate(1deg); }
+}
+@keyframes smoothFloat4 {
+  0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
+  50% { transform: translateY(-14px) scale(1.03) rotate(-1.5deg); }
+}
+@keyframes smoothFloat5 {
+  0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
+  50% { transform: translateY(-15px) scale(1.02) rotate(0.5deg); }
+}
+
+.anim-float-1 { animation: smoothFloat1 8s ease-in-out infinite; }
+.anim-float-2 { animation: smoothFloat2 9s ease-in-out infinite; }
+.anim-float-3 { animation: smoothFloat3 7s ease-in-out infinite; }
+.anim-float-4 { animation: smoothFloat4 10s ease-in-out infinite; }
+.anim-float-5 { animation: smoothFloat5 12s ease-in-out infinite; }
 
 /* Workspace Tabs */
 .workspace-tabs {

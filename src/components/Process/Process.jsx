@@ -1,24 +1,41 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Rocket, MousePointer2, Heart, Search, ClipboardList, Lightbulb, Map, LayoutPanelLeft, Code2, Target, Users } from 'lucide-react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { Rocket, Search, ClipboardList, Lightbulb, Target, Users } from 'lucide-react';
 import MagneticIcon from '../Common/MagneticIcon';
 import GradualBlur from '../Common/GradualBlur';
 import './Process.css';
 
+const ProcessCard = ({ number, title, text, visual, className, startX, startY, progressRange, scrollYProgress }) => {
+    const smoothProgress = useSpring(scrollYProgress, { damping: 25, stiffness: 120 });
+
+    const x = useTransform(smoothProgress, progressRange, [startX, "0vw"]);
+    const y = useTransform(smoothProgress, progressRange, [startY, "0vh"]);
+    const scale = useTransform(smoothProgress, progressRange, [0.6, 1]);
+    const opacity = useTransform(smoothProgress, [0, 0.1, progressRange[1]], [0, 1, 1]);
+
+    return (
+        <motion.div 
+            className={`process-card-absolute ${className}`}
+            style={{ x, y, scale, opacity }}
+        >
+            <div className="process-card-inner">
+                <div className="card-visual">
+                    {visual}
+                </div>
+                <div className="card-content">
+                    <span className="step-number">{number}</span>
+                    <h3 className="step-title">{title}</h3>
+                    <p className="step-text">{text}</p>
+                </div>
+            </div>
+        </motion.div>
+    );
+};
+
 const Process = () => {
     const fadeUp = {
-        hidden: { opacity: 0, y: 40 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.6, type: "spring", stiffness: 80 } }
-    };
-
-    const slideInLeft = {
-        hidden: { opacity: 0, x: -50 },
-        visible: { opacity: 1, x: 0, transition: { duration: 0.6, type: "spring", stiffness: 80 } }
-    };
-
-    const slideInRight = {
-        hidden: { opacity: 0, x: 50 },
-        visible: { opacity: 1, x: 0, transition: { duration: 0.6, type: "spring", stiffness: 80 } }
+        hidden: { opacity: 0, scale: 0.9 },
+        visible: { opacity: 1, scale: 1, transition: { duration: 0.8, type: "spring", stiffness: 80 } }
     };
 
     const sectionRef = useRef(null);
@@ -27,227 +44,166 @@ const Process = () => {
         offset: ["start start", "end end"]
     });
 
-    // Translate the steps upwards as the user scrolls down the page
-    const y = useTransform(scrollYProgress, [0, 1], ["0%", "-68%"]);
+    const smoothProgress = useSpring(scrollYProgress, { damping: 20, stiffness: 100 });
+    const pathLength = useTransform(smoothProgress, [0, 0.9], [0, 1]);
+
+    // Ellipse Path: Starts at Top-Left, goes clockwise to Top-Right, Bottom-Right, Bottom-Left, back to Top-Left.
+    const ellipsePath = "M 340,238 A 650 300 0 0 1 1260,238 A 650 300 0 0 1 1260,662 A 650 300 0 0 1 340,662 A 650 300 0 0 1 340,238";
 
     return (
         <section ref={sectionRef} className="process-section" id="process" aria-label="Our development process">
             <div className="sticky-glass-wrapper">
+                
                 <div className="process-glass-container">
+                    
+                    <div className="process-roadmap-container">
+                        {/* SVG Orbital Ellipse */}
+                        <div className="roadmap-svg-wrapper">
+                            <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" className="roadmap-svg">
+                                {/* Base dotted orbit track */}
+                                <path 
+                                    d={ellipsePath}
+                                    fill="none" 
+                                    stroke="rgba(14, 165, 233, 0.2)" 
+                                    strokeWidth="4" 
+                                    strokeDasharray="12 12" 
+                                />
+                                {/* Animated solid orbit track */}
+                                <motion.path 
+                                    d={ellipsePath}
+                                    fill="none" 
+                                    stroke="#0ea5e9" 
+                                    strokeWidth="6" 
+                                    style={{ pathLength }} 
+                                />
+                                
+                                {/* Checkpoints on the ellipse */}
+                                <circle cx="340" cy="238" r="10" fill="#ffffff" stroke="#0ea5e9" strokeWidth="4" />
+                                <circle cx="1260" cy="238" r="10" fill="#ffffff" stroke="#0ea5e9" strokeWidth="4" />
+                                <circle cx="1260" cy="662" r="10" fill="#ffffff" stroke="#0ea5e9" strokeWidth="4" />
+                                <circle cx="340" cy="662" r="10" fill="#ffffff" stroke="#0ea5e9" strokeWidth="4" />
+                            </svg>
+                        </div>
 
-                {/* Top Glowing Mesh */}
-                <div className="process-top-glow"></div>
-
-                {/* Header (Fixed at top) */}
-                <motion.div
-                    className="process-header"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-50px" }}
-                    variants={fadeUp}
-                >
-                    <div className="process-header-left">
-                        <div className="liquid-badge-wrapper section-badge">
-                            <div className="liquid-badge">
-                                <span className="badge-content-text">Our Process</span>
-                                <div className="liquid-container">
-                                    <div className="liquid-wave wave-1"></div>
-                                    <div className="liquid-wave wave-2"></div>
+                        {/* Central Details */}
+                        <motion.div
+                            className="process-center-details"
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, margin: "-50px" }}
+                            variants={fadeUp}
+                        >
+                            <div className="liquid-badge-wrapper section-badge center-badge">
+                                <div className="liquid-badge">
+                                    <span className="badge-content-text">Our Process</span>
+                                    <div className="liquid-container">
+                                        <div className="liquid-wave wave-1"></div>
+                                        <div className="liquid-wave wave-2"></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <h2 className="process-headline">Move at Startup Speed</h2>
-                    </div>
-                    <div className="process-header-right">
-                        <p className="process-description">
-                            Our streamlined methodology guarantees rapid deployment without compromising on quality. We prioritize what matters most to your users.
-                        </p>
-                        <div className="liquid-badge-wrapper process-cta-wrapper">
-                            <div className="liquid-badge">
-                                <span className="badge-content-text">Start your project ↗</span>
-                                <div className="liquid-container">
-                                    <div className="liquid-wave wave-1"></div>
-                                    <div className="liquid-wave wave-2"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </motion.div>
-
-                {/* Steps List (Animated by page scroll) */}
-                <div className="process-scroll-area">
-                    <motion.div className="process-steps" style={{ y }}>
-
-                    {/* Step 01 */}
-                    <motion.div
-                        className="process-step"
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-100px" }}
-                    >
-                        <motion.div className="step-content" variants={slideInLeft}>
-                            <span className="step-number">01</span>
-                            <h3 className="step-title">Discovery</h3>
-                            <p className="step-text">
-                                We begin by diving deep into your vision, target audience, and core objectives to establish a solid foundation.
+                            <h2 className="process-headline">Move at Startup Speed</h2>
+                            <p className="process-description">
+                                Our streamlined methodology guarantees rapid deployment without compromising on quality. We prioritize what matters most to your users.
                             </p>
                         </motion.div>
-                        <motion.div className="step-visual" variants={slideInRight}>
-                            <div className="visual-pill-wrapper dotted-bg flex-center" aria-hidden="true">
-                                {/* Connecting Idea Nodes Simulation */}
-                                <div className="discovery-nodes-wrapper">
+
+                        {/* Step 01 */}
+                        <ProcessCard
+                            className="card-1"
+                            number="01"
+                            title="Discovery"
+                            text="We begin by diving deep into your vision, target audience, and core objectives."
+                            startX="-40vw"
+                            startY="-40vh"
+                            progressRange={[0, 0.8]}
+                            scrollYProgress={scrollYProgress}
+                            visual={
+                                <div className="discovery-nodes-wrapper mini">
                                     <div className="node-center">
                                         <div className="node-glow"></div>
                                         <MagneticIcon maxRotation={15}>
                                             <Lightbulb size={24} color="#0ea5e9" />
                                         </MagneticIcon>
                                     </div>
-                                    <div className="node node-1">
-                                        <Search size={14} color="#64748b" />
-                                    </div>
-                                    <div className="node node-2">
-                                        <ClipboardList size={14} color="#64748b" />
-                                    </div>
-                                    <div className="node node-3">
-                                        <Target size={14} color="#64748b" />
-                                    </div>
-                                    <div className="node node-4">
-                                        <Users size={14} color="#64748b" />
-                                    </div>
-                                    {/* SVG Connecting Lines to center */}
-                                    <svg className="node-connections" viewBox="0 0 200 200">
-                                        <line x1="100" y1="100" x2="40" y2="50" stroke="rgba(14, 165, 233, 0.4)" strokeWidth="1.5" strokeDasharray="4,4" />
-                                        <line x1="100" y1="100" x2="160" y2="40" stroke="rgba(14, 165, 233, 0.4)" strokeWidth="1.5" strokeDasharray="4,4" />
-                                        <line x1="100" y1="100" x2="40" y2="150" stroke="rgba(14, 165, 233, 0.4)" strokeWidth="1.5" strokeDasharray="4,4" />
-                                        <line x1="100" y1="100" x2="160" y2="160" stroke="rgba(14, 165, 233, 0.4)" strokeWidth="1.5" strokeDasharray="4,4" />
-                                    </svg>
+                                    <div className="node node-1"><Search size={14} color="#64748b" /></div>
+                                    <div className="node node-2"><ClipboardList size={14} color="#64748b" /></div>
+                                    <div className="node node-3"><Target size={14} color="#64748b" /></div>
+                                    <div className="node node-4"><Users size={14} color="#64748b" /></div>
                                 </div>
-                            </div>
-                        </motion.div>
-                    </motion.div>
+                            }
+                        />
 
-                    {/* Step 02 */}
-                    <motion.div
-                        className="process-step row-reverse"
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-100px" }}
-                    >
-                        <motion.div className="step-content" variants={slideInRight}>
-                            <span className="step-number">02</span>
-                            <h3 className="step-title">Architecture</h3>
-                            <p className="step-text">
-                                Designing a scalable blueprint. We outline the technical infrastructure and user flows required for a seamless experience.
-                            </p>
-                        </motion.div>
-                        <motion.div className="step-visual" variants={slideInLeft}>
-                            {/* Tilted layered cards simulation */}
-                            <div className="tilted-cards-wrapper" aria-hidden="true">
-                                <div className="tilted-card card-back"></div>
-                                <div className="tilted-card card-mid"></div>
-                                <div className="tilted-card card-front">
-                                    {/* Abstract UI representation */}
-                                    <div className="ui-header"></div>
-                                    <div className="ui-body">
-                                        <div className="ui-sidebar"></div>
-                                        <div className="ui-content-area">
-                                            <div className="ui-line" style={{ width: '60%' }}></div>
-                                            <div className="ui-line" style={{ width: '80%' }}></div>
-                                            <div className="ui-line" style={{ width: '40%' }}></div>
+                        {/* Step 02 */}
+                        <ProcessCard
+                            className="card-2"
+                            number="02"
+                            title="Architecture"
+                            text="Designing a scalable blueprint. We outline the technical infrastructure required."
+                            startX="40vw"
+                            startY="-40vh"
+                            progressRange={[0, 0.8]}
+                            scrollYProgress={scrollYProgress}
+                            visual={
+                                <div className="tilted-cards-wrapper mini">
+                                    <div className="tilted-card card-back"></div>
+                                    <div className="tilted-card card-mid"></div>
+                                    <div className="tilted-card card-front">
+                                        <div className="ui-header"></div>
+                                        <div className="ui-body">
+                                            <div className="ui-sidebar"></div>
+                                            <div className="ui-content-area">
+                                                <div className="ui-line" style={{ width: '60%' }}></div>
+                                                <div className="ui-line" style={{ width: '80%' }}></div>
+                                                <div className="ui-line" style={{ width: '40%' }}></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </motion.div>
-                    </motion.div>
+                            }
+                        />
 
-                    {/* Step 03 */}
-                    <motion.div
-                        className="process-step"
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-100px" }}
-                    >
-                        <motion.div className="step-content" variants={slideInLeft}>
-                            <span className="step-number">03</span>
-                            <h3 className="step-title">Development</h3>
-                            <p className="step-text">
-                                Execution phase. We build your product using modern, robust technologies, ensuring high performance and reliability.
-                            </p>
-                        </motion.div>
-                        <motion.div className="step-visual" variants={slideInRight}>
-                            <div className="visual-pill-wrapper dark-bg" aria-hidden="true">
-                                <div className="code-block-mock">
-                                    <span className="code-line keyword">import</span> React <span className="code-line keyword">from</span> <span className="code-line string">'react'</span>;<br />
-                                    <span className="code-line keyword">const</span> <span className="code-line function">App</span> = () =&gt; {'{'}<br />
-                                    &nbsp;&nbsp;<span className="code-line keyword">return</span> (<br />
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span className="code-line component">ProcessView</span> /&gt;<br />
-                                    &nbsp;&nbsp;);<br />
-                                    {'}'};<br />
-                                    <span className="code-line keyword">export default</span> App;
+                        {/* Step 03 */}
+                        <ProcessCard
+                            className="card-3"
+                            number="03"
+                            title="Development"
+                            text="Execution phase. We build your product using modern, robust technologies."
+                            startX="40vw"
+                            startY="40vh"
+                            progressRange={[0, 0.8]}
+                            scrollYProgress={scrollYProgress}
+                            visual={
+                                <div className="code-block-mock mini">
+                                    <span className="code-line keyword">import</span> React;<br/>
+                                    <span className="code-line keyword">const</span> <span className="code-line function">App</span> = () =&gt; {'{'}<br/>
+                                    &nbsp;&nbsp;&lt;<span className="code-line component">Process</span> /&gt;<br/>
+                                    {'}'};
                                 </div>
-                                <div className="floating-brand brand-cursor">
-                                    <MagneticIcon maxRotation={25}>
-                                        <MousePointer2 size={16} fill="#0f172a" />
-                                    </MagneticIcon>
-                                    CURSOR
-                                </div>
-                                <div className="floating-brand brand-lovable">
-                                    <MagneticIcon maxRotation={25}>
-                                        <Heart size={16} fill="#ef4444" stroke="#ef4444" />
-                                    </MagneticIcon>
-                                    Lovable
-                                </div>
-                            </div>
-                        </motion.div>
-                    </motion.div>
+                            }
+                        />
 
-                    {/* Step 04 */}
-                    <motion.div
-                        className="process-step row-reverse"
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-100px" }}
-                    >
-                        <motion.div className="step-content" variants={slideInRight}>
-                            <span className="step-number">04</span>
-                            <h3 className="step-title">Deployment</h3>
-                            <p className="step-text">
-                                Taking your product live. We handle the deployment process and ensure everything runs smoothly in a production environment.
-                            </p>
-                        </motion.div>
-                        <motion.div className="step-visual" variants={slideInLeft}>
-                            <div className="visual-pill-wrapper bright-bg" aria-hidden="true">
-                                {/* Central glow and rocket */}
-                                <div className="center-glow"></div>
-                                <div className="rocket-badge">
+                        {/* Step 04 */}
+                        <ProcessCard
+                            className="card-4"
+                            number="04"
+                            title="Deployment"
+                            text="Taking your product live. We handle the deployment and ensure it runs smoothly."
+                            startX="-40vw"
+                            startY="40vh"
+                            progressRange={[0, 0.8]}
+                            scrollYProgress={scrollYProgress}
+                            visual={
+                                <div className="rocket-badge mini">
                                     <MagneticIcon maxRotation={30}>
                                         <Rocket size={32} color="#0284c7" />
                                     </MagneticIcon>
                                 </div>
-
-                                {/* Floating surrounding texts */}
-                                <div className="floating-text" style={{ top: '25%', left: '20%' }}>MVP IN 21 DAYS</div>
-                                <div className="floating-text" style={{ top: '25%', right: '20%' }}>SPEED TO MARKET</div>
-                                <div className="floating-text" style={{ bottom: '25%', left: '15%' }}>AI LEAD DEVELOPMENT</div>
-                                <div className="floating-text" style={{ bottom: '25%', right: '15%' }}>SCALABLE INFRA</div>
-                            </div>
-                        </motion.div>
-                    </motion.div>
-                    </motion.div>
+                            }
+                        />
+                    </div>
                 </div>
 
-                <GradualBlur
-                    target="parent"
-                    position="bottom"
-                    height="12rem"
-                    strength={2}
-                    divCount={3}
-                    curve="ease-out"
-                    exponential
-                    opacity={1}
-                />
-            </div>
             </div>
         </section>
     );

@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import ProjectsComponent from '../components/Projects/Projects';
-import GlassSurface from '../components/Common/GlassSurface';
 import MagneticButton from '../components/Common/MagneticButton';
 import './Projects.css';
 
@@ -19,6 +18,11 @@ const staggerContainer = {
 };
 
 const ProjectsPage = () => {
+  useEffect(() => {
+    document.title = 'Projects & Portfolio | Elixor Technologies';
+    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Explore our portfolio of MVPs, SaaS platforms, CRM systems, and enterprise software built for startups.');
+  }, []);
+
   return (
     <div className="projects-page">
       {/* Hero Section */}
@@ -48,25 +52,25 @@ const ProjectsPage = () => {
       >
         <div className="metrics-grid">
           <motion.div variants={fadeUp} style={{ height: '100%' }}>
-            <GlassSurface className="metric-card" width="100%" height="100%" borderRadius={24} padding="40px" borderWidth={1} blur={12}>
+            <div className="metric-card">
               <div className="metric-value">50+</div>
               <div className="metric-label">Products Shipped</div>
               <div className="metric-desc">From zero-to-one MVPs to full-scale enterprise migrations.</div>
-            </GlassSurface>
+            </div>
           </motion.div>
           <motion.div variants={fadeUp} style={{ height: '100%' }}>
-            <GlassSurface className="metric-card" width="100%" height="100%" borderRadius={24} padding="40px" borderWidth={1} blur={12}>
+            <div className="metric-card">
               <div className="metric-value">99%</div>
               <div className="metric-label">Client Retention</div>
               <div className="metric-desc">Our partners stay with us because we treat their business like our own.</div>
-            </GlassSurface>
+            </div>
           </motion.div>
           <motion.div variants={fadeUp} style={{ height: '100%' }}>
-            <GlassSurface className="metric-card" width="100%" height="100%" borderRadius={24} padding="40px" borderWidth={1} blur={12}>
+            <div className="metric-card">
               <div className="metric-value">6 mo</div>
               <div className="metric-label">Average Engagement</div>
               <div className="metric-desc">Long-term architectural partnerships, not just gig work.</div>
-            </GlassSurface>
+            </div>
           </motion.div>
         </div>
       </motion.section>
@@ -79,7 +83,7 @@ const ProjectsPage = () => {
         viewport={{ once: true }}
         variants={fadeUp}
       >
-        <GlassSurface className="cta-card" width="100%" height="auto" borderRadius={32} padding="80px" borderWidth={1} blur={24} brightness={30} opacity={0.9} backgroundOpacity={0.8}>
+        <div className="cta-card">
           <div className="cta-content">
             <h2 className="cta-title">Ready to build your next big thing?</h2>
             <p className="cta-desc">
@@ -95,7 +99,7 @@ const ProjectsPage = () => {
               </div>
             </MagneticButton>
           </div>
-        </GlassSurface>
+        </div>
       </motion.section>
     </div>
   );

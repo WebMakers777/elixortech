@@ -8,48 +8,31 @@
     z-index: 0;
     pointer-events: none;
     overflow: hidden;
-    /* Deep Slate / Dark blue base to make glows pop. The bottom-fade blends this back to white */
     background: #060b13;
 }
 
-/* Layer 5: Organic Volumetric Lighting */
-.ambient-glow {
+/* Lightweight CSS gradient replacing heavy WebGL fluid simulation */
+.hero-gradient-bg {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 60vw;
-    height: 60vw;
-    border-radius: 50%;
-    filter: blur(60px);
-    opacity: 0.25;
-    mix-blend-mode: screen;
-    pointer-events: none;
-    z-index: 0;
-    will-change: transform;
+    inset: 0;
+    background: 
+        radial-gradient(ellipse 80% 60% at 30% 40%, rgba(82, 39, 255, 0.35) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 80% at 70% 60%, rgba(255, 159, 252, 0.25) 0%, transparent 70%),
+        radial-gradient(ellipse 90% 50% at 50% 50%, rgba(180, 151, 207, 0.15) 0%, transparent 70%);
+    animation: heroShift 20s ease-in-out infinite alternate;
+    z-index: 1;
 }
 
-.glow-primary {
-    background: radial-gradient(circle, #22d3ee 0%, rgba(34, 211, 238, 0) 70%);
-    animation: drift 15s ease-in-out infinite alternate;
+@keyframes heroShift {
+    0%   { transform: scale(1) translate(0, 0); }
+    50%  { transform: scale(1.05) translate(2%, -1%); }
+    100% { transform: scale(1) translate(-1%, 1%); }
 }
 
-.glow-secondary {
-    background: radial-gradient(circle, #6366f1 0%, rgba(99, 102, 241, 0) 70%);
-    width: 70vw;
-    height: 70vw;
-    opacity: 0.15;
-    animation: drift 20s ease-in-out infinite alternate-reverse;
-}
-
-@keyframes drift {
-    0% {
-        transform: translate(-50%, -50%) scale(1);
-    }
-
-    100% {
-        transform: translate(-50%, -50%) scale(1.1) rotate(15deg);
-    }
-}
+/* Legacy ambient glow classes — now unused, kept for reference */
+.ambient-glow { display: none; }
+.glow-primary { display: none; }
+.glow-secondary { display: none; }
 
 /* Vignette for cinematic depth */
 .hero-3d-vignette {

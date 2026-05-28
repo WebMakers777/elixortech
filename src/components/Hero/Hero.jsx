@@ -51,7 +51,8 @@ const Hero = () => {
                 className="hero-container"
                 variants={containerVariants}
                 initial="hidden"
-                animate="visible"
+                whileInView="visible"
+                viewport={{ once: false, amount: 0.1 }}
             >
 
                 {/* Top Badge */}
@@ -92,7 +93,7 @@ const Hero = () => {
                             direction="top"
                             animateBy="words"
                         />
-                        <a href="#contact" style={{ textDecoration: 'none' }} onClick={(e) => handleNavClick(e, '#contact')}>
+                        <a href="/contact" style={{ textDecoration: 'none' }} onClick={(e) => handleNavClick(e, '/contact')}>
                             <div className="liquid-badge-wrapper hero-cta-wrapper">
                                 <div className="liquid-badge">
                                     <span className="badge-content-text">Start your project ↗</span>

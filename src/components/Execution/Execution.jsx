@@ -1,12 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Zap } from 'lucide-react';
-import MagneticIcon from '../Common/MagneticIcon';
+import { Zap, Server, Rocket, Timer } from 'lucide-react';
 import './Execution.css';
 
 const Execution = () => {
     const fadeUp = {
-        hidden: { opacity: 0, y: 30 },
+        hidden: { opacity: 0, y: 40 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.6, type: "spring", stiffness: 80 } }
     };
 
@@ -43,79 +42,78 @@ const Execution = () => {
                     We engineer complete<br />products at velocity
                 </h2>
                 <p className="execution-subtext">
-                    Your vision, realized. Backed by 5+ successful client launches.
+                    Your vision, realized. Stop waiting months for a product that can be built in weeks.
                 </p>
             </motion.div>
 
-            <motion.div
-                className="service-pills-container"
+            <motion.div 
+                className="bento-grid"
                 variants={staggerContainer}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-50px" }}
             >
-                <motion.div className="service-pill pill-purple" variants={fadeUp}>
-                    <div className="pill-inner">Website Development</div>
-                </motion.div>
-                <motion.div className="service-pill pill-orange" variants={fadeUp}>
-                    <div className="pill-inner">Mobile App Development</div>
-                </motion.div>
-                <motion.div className="service-pill pill-blue" variants={fadeUp}>
-                    <div className="pill-inner">Landing Page Revamp</div>
-                </motion.div>
-                <motion.div className="service-pill pill-green" variants={fadeUp}>
-                    <div className="pill-inner">AI SaaS</div>
-                </motion.div>
-            </motion.div>
-
-            <motion.div
-                className="comparison-glass-card"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-100px" }}
-                variants={fadeUp}
-            >
-                <h3 className="comparison-title">3x Faster Than Traditional Teams</h3>
-                <p className="comparison-desc">
-                    We consistently ship launch-ready MVPs in just 21 days Traditional teams often<br />
-                    take 3 to 6 months to reach the same point
-                </p>
-
-                <div className="comparison-bars-layout">
-                    {/* Elixor Technologies Bar */}
-                    <div className="comp-bar elixor-bar">
-                        <div className="bar-main">
-                            <div className="bar-pill elixor-pill">
-                                <span className="pill-text">with Elixor Technologies</span>
-                                <div className="pill-glow-icon">
-                                    <Zap size={14} fill="#059669" strokeWidth={0} />
+                {/* 1. Massive 21 Days Card */}
+                <motion.div className="bento-card bento-large bento-21-days" variants={fadeUp}>
+                    <div className="bento-content">
+                        <div className="bento-icon-wrapper"><Timer size={24} color="#059669" /></div>
+                        <h3 className="bento-title">From Idea to MVP in 21 Days</h3>
+                        <p className="bento-desc">Traditional teams take 3 to 6 months. We deploy production-ready applications in 3 weeks by leveraging AI workflows and pre-built scalable infrastructure.</p>
+                        
+                        <div className="comparison-graphic">
+                            <div className="comp-row">
+                                <span className="comp-label">Elixor Technologies</span>
+                                <div className="comp-bar-wrapper">
+                                    <div className="comp-bar elixor-bar-fill">
+                                        <span className="comp-value">21 Days</span>
+                                        <Zap size={14} className="flash-icon" />
+                                    </div>
                                 </div>
                             </div>
-                            <div className="bar-metric">
-                                <span className="metric-value">21</span>
-                                <span className="metric-unit">Days</span>
+                            <div className="comp-row">
+                                <span className="comp-label">Traditional Teams</span>
+                                <div className="comp-bar-wrapper">
+                                    <div className="comp-bar traditional-bar-fill">
+                                        <span className="comp-value">180+ Days</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <p className="bento-note">*The Earth moves 54M km around the Sun in 21 days. We launch your MVP just as fast.</p>
                     </div>
+                </motion.div>
 
-                    {/* Others Bar */}
-                    <div className="comp-bar others-bar">
-                        <div className="bar-main">
-                            <div className="bar-pill others-pill">
-                                <span className="pill-text">with others</span>
-                            </div>
-                            <div className="bar-metric">
-                                <span className="metric-value">180</span>
-                                <span className="metric-unit">Days</span>
-                            </div>
-                        </div>
+                {/* 2. Architecture Card */}
+                <motion.div className="bento-card bento-tall image-card" variants={fadeUp}>
+                    <img src="/exec-arch.png" alt="Modular Architecture" className="bento-image" loading="lazy" />
+                    <div className="bento-overlay">
+                        <div className="bento-icon-wrapper"><Server size={20} color="#0f172a" /></div>
+                        <h3 className="bento-title">Solid Architecture</h3>
+                        <p className="bento-desc">Built to handle millions of requests without breaking a sweat.</p>
                     </div>
-                </div>
+                </motion.div>
 
-                <p className="comparison-bottom-note">
-                    *The Earth moves 54 million kilometers around the Sun in 21 days, our MVPs orbit the market just as fast
-                </p>
+                {/* 3. Speed & Velocity Card */}
+                <motion.div className="bento-card bento-wide image-card" variants={fadeUp}>
+                    <img src="/exec-speed.png" alt="High Velocity" className="bento-image" loading="lazy" />
+                    <div className="bento-overlay">
+                        <div className="bento-icon-wrapper"><Zap size={20} color="#0f172a" /></div>
+                        <h3 className="bento-title">Maximum Velocity</h3>
+                        <p className="bento-desc">AI-driven pipelines and zero technical debt ensure we move faster than your competition.</p>
+                    </div>
+                </motion.div>
+
+                {/* 4. Launch Card */}
+                <motion.div className="bento-card image-card" variants={fadeUp}>
+                    <img src="/exec-launch.png" alt="Successful Launch" className="bento-image" loading="lazy" />
+                    <div className="bento-overlay">
+                        <div className="bento-icon-wrapper"><Rocket size={20} color="#0f172a" /></div>
+                        <h3 className="bento-title">Flawless Launch</h3>
+                        <p className="bento-desc">Stress-tested, secured, and deployed seamlessly.</p>
+                    </div>
+                </motion.div>
             </motion.div>
+
         </section>
     );
 };

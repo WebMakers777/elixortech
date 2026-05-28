@@ -24,6 +24,7 @@ const BlurText = ({
   easing = t => t,
   onAnimationComplete,
   stepDuration = 0.35,
+  once = false,
   as: Component = 'p'
 }) => {
   const elements = animateBy === 'words' ? text.split(' ') : text.split('');
@@ -36,7 +37,9 @@ const BlurText = ({
       ([entry]) => {
         if (entry.isIntersecting) {
           setInView(true);
-          observer.unobserve(ref.current);
+          if (once) observer.unobserve(ref.current);
+        } else {
+          if (!once) setInView(false);
         }
       },
       { threshold, rootMargin }

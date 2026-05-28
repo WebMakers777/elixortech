@@ -1,5 +1,5 @@
 import React from 'react';
-import { Github, Twitter, Linkedin, Youtube, ArrowUpRight } from 'lucide-react';
+import { Github, Instagram, Linkedin, ArrowUpRight } from 'lucide-react';
 import './Footer.css';
 
 const Footer = () => {
@@ -24,7 +24,7 @@ const Footer = () => {
                                 technical debt and automatically accelerate your momentum.
                             </p>
                             <div className="cta-actions">
-                                <a href="#contact" style={{ textDecoration: 'none' }}>
+                                <a href="/contact" style={{ textDecoration: 'none' }}>
                                     <div className="liquid-badge-wrapper cta-main-btn">
                                         <div className="liquid-badge">
                                             <span className="badge-content-text">Get started <ArrowUpRight size={16} /></span>
@@ -74,7 +74,7 @@ const Footer = () => {
                                 <a href="#features">Features</a>
                                 <a href="#process">Process</a>
                                 <a href="#projects">Projects</a>
-                                <a href="#contact">Contact</a>
+                                <a href="/contact">Contact</a>
                             </div>
                             <div className="footer-col">
                                 <h4>Support</h4>
@@ -84,9 +84,8 @@ const Footer = () => {
                             </div>
                             <div className="footer-col">
                                 <h4>Connect</h4>
-                                <a href="#" className="social-link" aria-label="Follow Elixor Technologies on X (Twitter)" rel="noopener noreferrer"><Twitter size={14} /> X (Twitter)</a>
+                                <a href="#" className="social-link" aria-label="Follow Elixor Technologies on Instagram" rel="noopener noreferrer"><Instagram size={14} /> Instagram</a>
                                 <a href="#" className="social-link" aria-label="Follow Elixor Technologies on LinkedIn" rel="noopener noreferrer"><Linkedin size={14} /> LinkedIn</a>
-                                <a href="#" className="social-link" aria-label="Subscribe to Elixor Technologies on YouTube" rel="noopener noreferrer"><Youtube size={14} /> YouTube</a>
                                 <a href="#" className="social-link" aria-label="View Elixor Technologies GitHub" rel="noopener noreferrer"><Github size={14} /> GitHub</a>
                             </div>
                         </div>

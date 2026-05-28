@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Sparkles, Zap, Shield, Target, Smartphone, Globe, RefreshCcw, Rocket } from 'lucide-react';
 
@@ -134,6 +134,13 @@ const FAQBubble = ({ item, index }) => {
 };
 
 const FAQPage = () => {
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    document.title = 'FAQ | Elixor Technologies';
+    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Frequently asked questions about our MVP development process, pricing, tech stack, and delivery timelines.');
+  }, []);
+
   return (
     <div className="faq-page-container">
       {/* Ambient Background Glowing Orbs */}
@@ -162,6 +169,30 @@ const FAQPage = () => {
           <FAQBubble key={index} item={item} index={index} />
         ))}
       </section>
+
+      {/* Have a Question Section */}
+      <motion.section 
+        className="faq-contact-section"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="faq-contact-card">
+          <h2>Still have a question?</h2>
+          <p>Drop your question here and we'll get back to you shortly.</p>
+          {submitted ? (
+            <div className="faq-success-message">
+              <span>✅ Your question has been submitted. We'll be in touch!</span>
+            </div>
+          ) : (
+            <form className="faq-question-form" onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}>
+              <input type="text" placeholder="Drop your question here..." required className="faq-question-input" />
+              <button type="submit" className="faq-contact-btn">Submit ↗</button>
+            </form>
+          )}
+        </div>
+      </motion.section>
     </div>
   );
 };

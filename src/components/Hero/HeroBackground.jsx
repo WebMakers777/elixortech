@@ -3,22 +3,22 @@ import LiquidEther from './LiquidEther';
 import './HeroBackground.css';
 
 const HeroBackground3D = () => {
-    const [isMobile, setIsMobile] = useState(false);
+    const [isMobile, setIsMobile] = useState(true); // default to mobile (no WebGL)
 
     useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth <= 768);
+        const checkCapability = () => {
+            const width = window.innerWidth;
+            const isTouch = window.matchMedia('(pointer: coarse)').matches;
+            const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            setIsMobile(width <= 768 || isTouch || prefersReduced);
         };
-        // Initial check
-        checkMobile();
-        // Listener for resize
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
+        checkCapability();
+        window.addEventListener('resize', checkCapability);
+        return () => window.removeEventListener('resize', checkCapability);
     }, []);
 
     return (
         <div className="hero-3d-wrapper">
-            {/* LiquidEther fluid simulation background */}
             <div style={{ width: '100%', height: '100%', position: 'absolute', inset: 0 }}>
                 {!isMobile ? (
                     <LiquidEther
@@ -27,9 +27,9 @@ const HeroBackground3D = () => {
                         cursorSize={100}
                         isViscous
                         viscous={15}
-                        iterationsViscous={8}
-                        iterationsPoisson={8}
-                        resolution={0.25}
+                        iterationsViscous={4}
+                        iterationsPoisson={4}
+                        resolution={0.2}
                         isBounce={false}
                         autoDemo
                         autoSpeed={0.5}
@@ -39,18 +39,13 @@ const HeroBackground3D = () => {
                         autoRampDuration={0.6}
                     />
                 ) : (
-                    <div className="mobile-fallback-gradient" style={{
-                        width: '100%', 
-                        height: '100%',
-                        background: 'radial-gradient(circle at 50% 50%, #1e103c 0%, #060b13 100%)'
-                    }} />
+                    <div className="hero-gradient-bg" />
                 )}
             </div>
 
-            {/* Overlays to blend with page context */}
+            {/* Overlays */}
             <div className="hero-3d-vignette" />
             <div className="hero-3d-bottom-fade" />
-            <div className="hero-3d-noise" />
         </div>
     );
 };

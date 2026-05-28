@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import GlassSurface from '../components/Common/GlassSurface';
 import './Story.css';
 
 const Story = () => {
+  useEffect(() => {
+    document.title = 'Our Story | Elixor Technologies';
+    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Learn how Elixor Technologies became a leading MVP development agency helping startups ship products in record time.');
+  }, []);
+
   const [activeTab, setActiveTab] = useState('Workspace');
 
   const tabContent = {
@@ -89,9 +94,8 @@ const Story = () => {
         <div className="story-values-grid">
           <GlassSurface width="100%" height="auto" borderRadius={24} borderWidth={1} blur={12}>
             <div className="value-card">
-              <div className="placeholder-image">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="placeholder-icon"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                Image Placeholder
+              <div className="motion-loop-container">
+                <img src="/story-loop-1.webp" alt="Focus on scale visual" className="motion-loop-visual anim-float-1" loading="lazy" />
               </div>
               <h4 className="value-title">Focus on scale</h4>
               <p className="value-desc">Every solution we build is designed to grow with you. From day one, scalability is baked into the architecture.</p>
@@ -100,9 +104,8 @@ const Story = () => {
 
           <GlassSurface width="100%" height="auto" borderRadius={24} borderWidth={1} blur={12}>
             <div className="value-card">
-              <div className="placeholder-image">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="placeholder-icon"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                Image Placeholder
+              <div className="motion-loop-container">
+                <img src="/story-loop-2.webp" alt="Team focus visual" className="motion-loop-visual anim-float-2" loading="lazy" />
               </div>
               <h4 className="value-title">Strong team focus</h4>
               <p className="value-desc">Our 30+ member team brings together specialists in development, AI, and consulting — collaborating closely.</p>
@@ -111,9 +114,8 @@ const Story = () => {
 
           <GlassSurface width="100%" height="auto" borderRadius={24} borderWidth={1} blur={12}>
             <div className="value-card">
-              <div className="placeholder-image">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="placeholder-icon"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                Image Placeholder
+              <div className="motion-loop-container">
+                <img src="/story-loop-3.webp" alt="Engineering rigor visual" className="motion-loop-visual anim-float-3" loading="lazy" />
               </div>
               <h4 className="value-title">Engineering Rigor</h4>
               <p className="value-desc">We never cut corners. Clean code, comprehensive testing, and robust infrastructure are non-negotiable.</p>
@@ -122,9 +124,8 @@ const Story = () => {
 
           <GlassSurface width="100%" height="auto" borderRadius={24} borderWidth={1} blur={12}>
             <div className="value-card">
-              <div className="placeholder-image">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="placeholder-icon"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                Image Placeholder
+              <div className="motion-loop-container">
+                <img src="/story-loop-4.webp" alt="Transparency visual" className="motion-loop-visual anim-float-4" loading="lazy" />
               </div>
               <h4 className="value-title">Transparency</h4>
               <p className="value-desc">Zero jargon, no hidden fees. We believe in building trust through absolute transparency and honest communication.</p>
@@ -167,9 +168,8 @@ const Story = () => {
               </motion.div>
             </div>
 
-            <div className="placeholder-video">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="placeholder-icon"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-              <span>Video / Image Placeholder</span>
+            <div className="workspace-motion-loop">
+              <img src="/story-loop-5.webp" alt="Workspace dynamic visual" className="motion-loop-visual anim-float-5" loading="lazy" />
             </div>
           </div>
         </GlassSurface>
