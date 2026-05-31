@@ -95,7 +95,7 @@ const Navbar = () => {
       >
         <nav className="navbar-inner" aria-label="Main navigation">
           <div className="navbar-logo" onClick={(e) => handleNavClick(e, '/')} style={{ cursor: 'pointer' }}>
-            <img className="logo-icon" src="/logo.png" alt="Elixor Technologies Logo" />
+            <img className="logo-icon" src="/logo.webp" alt="Elixor Technologies Logo" />
             <span className="logo-text">Elixor Technologies.</span>
           </div>
 

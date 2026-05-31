@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import LiquidEther from './LiquidEther';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import './HeroBackground.css';
+
+// Lazy-load the heavy 3D WebGL background to exclude it from the initial bundle
+const LiquidEther = lazy(() => import('./LiquidEther'));
 
 const HeroBackground3D = () => {
     const [isMobile, setIsMobile] = useState(true); // default to mobile (no WebGL)
@@ -21,23 +23,25 @@ const HeroBackground3D = () => {
         <div className="hero-3d-wrapper">
             <div style={{ width: '100%', height: '100%', position: 'absolute', inset: 0 }}>
                 {!isMobile ? (
-                    <LiquidEther
-                        colors={['#5227FF', '#FF9FFC', '#B497CF']}
-                        mouseForce={20}
-                        cursorSize={100}
-                        isViscous
-                        viscous={15}
-                        iterationsViscous={4}
-                        iterationsPoisson={4}
-                        resolution={0.2}
-                        isBounce={false}
-                        autoDemo
-                        autoSpeed={0.5}
-                        autoIntensity={2.2}
-                        takeoverDuration={0.25}
-                        autoResumeDelay={3000}
-                        autoRampDuration={0.6}
-                    />
+                    <Suspense fallback={<div className="hero-gradient-bg" />}>
+                        <LiquidEther
+                            colors={['#5227FF', '#FF9FFC', '#B497CF']}
+                            mouseForce={20}
+                            cursorSize={100}
+                            isViscous
+                            viscous={15}
+                            iterationsViscous={4}
+                            iterationsPoisson={4}
+                            resolution={0.2}
+                            isBounce={false}
+                            autoDemo
+                            autoSpeed={0.5}
+                            autoIntensity={2.2}
+                            takeoverDuration={0.25}
+                            autoResumeDelay={3000}
+                            autoRampDuration={0.6}
+                        />
+                    </Suspense>
                 ) : (
                     <div className="hero-gradient-bg" />
                 )}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { Rocket, CodeXml, Clock, BrainCircuit, Box } from 'lucide-react';
 import MagneticIcon from '../Common/MagneticIcon';
 import BlurText from '../Common/BlurText';
@@ -7,12 +8,22 @@ import HeroBackground from './HeroBackground';
 import './Hero.css';
 
 const Hero = () => {
+    const navigate = useNavigate();
+
     const handleNavClick = (e, href) => {
         e.preventDefault();
-        if (window.lenis) {
-            window.lenis.scrollTo(href, { offset: -80 });
+        if (href.startsWith('#')) {
+            if (window.lenis) {
+                window.lenis.scrollTo(href, { offset: -80 });
+            } else {
+                document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+            }
         } else {
-            document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+            navigate(href);
+            window.scrollTo(0, 0);
+            if (window.lenis) {
+                window.lenis.scrollTo(0, { immediate: true });
+            }
         }
     };
 

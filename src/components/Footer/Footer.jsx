@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Github, Instagram, Linkedin, ArrowUpRight } from 'lucide-react';
+import ProcessModal from '../Common/ProcessModal';
 import './Footer.css';
 
 const Footer = () => {
+    const [isProcessOpen, setIsProcessOpen] = useState(false);
+
     return (
         <footer className="footer" id="footer" role="contentinfo" aria-label="Site footer">
             <div className="footer-container">
@@ -35,11 +38,9 @@ const Footer = () => {
                                         </div>
                                     </div>
                                 </a>
-                                <a href="#process" style={{ textDecoration: 'none' }}>
-                                    <button className="cta-secondary-btn">
-                                        Watch how it works <span className="play-icon">▶</span>
-                                    </button>
-                                </a>
+                                <button className="cta-secondary-btn" onClick={() => setIsProcessOpen(true)}>
+                                    Watch how it works <span className="play-icon">▶</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -54,7 +55,7 @@ const Footer = () => {
                         {/* Column 1: Branding */}
                         <div className="footer-col branding-col">
                             <div className="footer-logo">
-                                <img className="logo-icon" src="/logo.png" alt="Elixor Technologies Logo" />
+                                <img className="logo-icon" src="/logo.webp" alt="Elixor Technologies Logo" />
                                 <span>Elixor Technologies.</span>
                             </div>
                             <p className="footer-branding-desc">
@@ -103,6 +104,9 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
+            
+            {/* Interactive Process Walkthrough Modal */}
+            <ProcessModal isOpen={isProcessOpen} onClose={() => setIsProcessOpen(false)} />
         </footer>
     );
 };

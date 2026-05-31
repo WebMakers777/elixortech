@@ -85,7 +85,7 @@ const Execution = () => {
 
                 {/* 2. Architecture Card */}
                 <motion.div className="bento-card bento-tall image-card" variants={fadeUp}>
-                    <img src="/exec-arch.png" alt="Modular Architecture" className="bento-image" loading="lazy" />
+                    <img src="/exec-arch.webp" alt="Modular Architecture" className="bento-image" loading="lazy" />
                     <div className="bento-overlay">
                         <div className="bento-icon-wrapper"><Server size={20} color="#0f172a" /></div>
                         <h3 className="bento-title">Solid Architecture</h3>
@@ -95,7 +95,7 @@ const Execution = () => {
 
                 {/* 3. Speed & Velocity Card */}
                 <motion.div className="bento-card bento-wide image-card" variants={fadeUp}>
-                    <img src="/exec-speed.png" alt="High Velocity" className="bento-image" loading="lazy" />
+                    <img src="/exec-speed.webp" alt="High Velocity" className="bento-image" loading="lazy" />
                     <div className="bento-overlay">
                         <div className="bento-icon-wrapper"><Zap size={20} color="#0f172a" /></div>
                         <h3 className="bento-title">Maximum Velocity</h3>
@@ -105,7 +105,7 @@ const Execution = () => {
 
                 {/* 4. Launch Card */}
                 <motion.div className="bento-card image-card" variants={fadeUp}>
-                    <img src="/exec-launch.png" alt="Successful Launch" className="bento-image" loading="lazy" />
+                    <img src="/exec-launch.webp" alt="Successful Launch" className="bento-image" loading="lazy" />
                     <div className="bento-overlay">
                         <div className="bento-icon-wrapper"><Rocket size={20} color="#0f172a" /></div>
                         <h3 className="bento-title">Flawless Launch</h3>

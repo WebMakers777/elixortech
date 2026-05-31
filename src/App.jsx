@@ -4,8 +4,10 @@ import Lenis from 'lenis';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import Loader from './components/Loader/Loader';
-import Home from './pages/Home';
 import './App.css';
+
+// Lazy-load the Home landing page
+const Home = lazy(() => import('./pages/Home'));
 
 // Lazy-load the WebGL fluid cursor
 const SplashCursor = lazy(() => import('./components/Common/SplashCursor'));
