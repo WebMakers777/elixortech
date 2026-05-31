@@ -1,10 +1,35 @@
 import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Github, Instagram, Linkedin, ArrowUpRight } from 'lucide-react';
 import ProcessModal from '../Common/ProcessModal';
 import './Footer.css';
 
 const Footer = () => {
     const [isProcessOpen, setIsProcessOpen] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const handleNavClick = (e, path) => {
+        e.preventDefault();
+        if (path.startsWith('#')) {
+            if (location.pathname !== '/') {
+                navigate('/' + path);
+            } else {
+                if (window.lenis) {
+                    window.lenis.scrollTo(path, { offset: -80 });
+                } else {
+                    const el = document.querySelector(path);
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        } else {
+            navigate(path);
+            window.scrollTo(0, 0);
+            if (window.lenis) {
+                window.lenis.scrollTo(0, { immediate: true });
+            }
+        }
+    };
 
     return (
         <footer className="footer" id="footer" role="contentinfo" aria-label="Site footer">
@@ -27,7 +52,7 @@ const Footer = () => {
                                 technical debt and automatically accelerate your momentum.
                             </p>
                             <div className="cta-actions">
-                                <a href="/contact" style={{ textDecoration: 'none' }}>
+                                <a href="/contact" style={{ textDecoration: 'none' }} onClick={(e) => handleNavClick(e, '/contact')}>
                                     <div className="liquid-badge-wrapper cta-main-btn">
                                         <div className="liquid-badge">
                                             <span className="badge-content-text">Get started <ArrowUpRight size={16} /></span>
@@ -54,7 +79,7 @@ const Footer = () => {
                     <div className="footer-cols">
                         {/* Column 1: Branding */}
                         <div className="footer-col branding-col">
-                            <div className="footer-logo">
+                            <div className="footer-logo" onClick={(e) => handleNavClick(e, '/')} style={{ cursor: 'pointer' }}>
                                 <img className="logo-icon" src="/logo.webp" alt="Elixor Technologies Logo" />
                                 <span>Elixor Technologies.</span>
                             </div>
@@ -71,17 +96,17 @@ const Footer = () => {
                         <div className="links-group" role="navigation" aria-label="Footer navigation">
                             <div className="footer-col">
                                 <h4>Agency</h4>
-                                <a href="#home">Home</a>
-                                <a href="#features">Features</a>
-                                <a href="#process">Process</a>
-                                <a href="#projects">Projects</a>
-                                <a href="/contact">Contact</a>
+                                <a href="/" onClick={(e) => handleNavClick(e, '/')}>Home</a>
+                                <a href="/features" onClick={(e) => handleNavClick(e, '/features')}>Features</a>
+                                <a href="#" onClick={(e) => { e.preventDefault(); setIsProcessOpen(true); }}>Process</a>
+                                <a href="/projects" onClick={(e) => handleNavClick(e, '/projects')}>Projects</a>
+                                <a href="/contact" onClick={(e) => handleNavClick(e, '/contact')}>Contact</a>
                             </div>
                             <div className="footer-col">
                                 <h4>Support</h4>
-                                <a href="#docs">Documentation</a>
-                                <a href="#faq">FAQ</a>
-                                <a href="#support">Support</a>
+                                <a href="#docs" onClick={(e) => handleNavClick(e, '#docs')}>Documentation</a>
+                                <a href="/faq" onClick={(e) => handleNavClick(e, '/faq')}>FAQ</a>
+                                <a href="#support" onClick={(e) => handleNavClick(e, '#support')}>Support</a>
                             </div>
                             <div className="footer-col">
                                 <h4>Connect</h4>
@@ -99,8 +124,8 @@ const Footer = () => {
                         © 2024 Elixor Technologies. All rights reserved
                     </div>
                     <div className="footer-legal">
-                        <a href="#privacy">Privacy Policy</a>
-                        <a href="#terms">Terms of Use</a>
+                        <a href="#privacy" onClick={(e) => handleNavClick(e, '#privacy')}>Privacy Policy</a>
+                        <a href="#terms" onClick={(e) => handleNavClick(e, '#terms')}>Terms of Use</a>
                     </div>
                 </div>
             </div>

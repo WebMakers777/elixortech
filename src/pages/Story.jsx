@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { HeartHandshake, Eye, ShieldCheck, Key } from 'lucide-react';
 import GlassSurface from '../components/Common/GlassSurface';
 import './Story.css';
 
@@ -191,28 +192,34 @@ const Story = () => {
           {[
             {
               num: '01',
+              icon: <HeartHandshake size={20} color="#3b82f6" />,
               title: 'We treat your business like our own',
               desc: "We don't clock in and clock out. Every decision we make — from architecture to UI — is made with your growth in mind. Your problems become our problems, until they're solved."
             },
             {
               num: '02',
+              icon: <Eye size={20} color="#3b82f6" />,
               title: 'Zero jargon, full transparency',
               desc: "No confusing tech-talk, no hidden surprises. We keep communication clear, timelines honest, and you in the loop — always. You'll always know exactly where your project stands."
             },
             {
               num: '03',
+              icon: <ShieldCheck size={20} color="#3b82f6" />,
               title: 'Built right the first time',
               desc: "We'd rather take the time to do it properly than rush a half-baked solution. Every system we deliver is tested, refined, and genuinely ready for the real world."
             },
             {
               num: '04',
+              icon: <Key size={20} color="#3b82f6" />,
               title: 'You own everything, completely',
               desc: "Your code, your data, your IP — all of it belongs to you from day one. No lock-ins, no dependency traps. We build for your freedom, not ours."
             }
           ].map((promise) => (
             <div className="promise-item" key={promise.num}>
               <span className="promise-num">{promise.num}</span>
-              <div className="promise-icon-placeholder">Icon</div>
+              <div className="promise-icon-wrapper">
+                {promise.icon}
+              </div>
               <div className="promise-content">
                 <h4>{promise.title}</h4>
                 <p>{promise.desc}</p>
