@@ -248,6 +248,17 @@
     transition: transform 0.6s ease;
 }
 
+/* Split Video Grid Effect */
+.video-frame-1 {
+    object-position: right top;
+}
+.video-frame-2 {
+    object-position: left bottom;
+}
+.video-frame-3 {
+    object-position: right bottom;
+}
+
 .image-card:hover .bento-image {
     transform: scale(1.05);
 }

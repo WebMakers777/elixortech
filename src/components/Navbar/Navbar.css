@@ -309,3 +309,112 @@
     justify-content: flex-start;
   }
 }
+
+/* Features Mega Menu Overrides */
+.features-mega-grid {
+  grid-template-columns: 1fr 1fr 1.2fr;
+}
+
+.mega-link-icon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mega-link-icon svg {
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+  flex-shrink: 0;
+}
+
+.mega-link-icon:hover svg {
+  opacity: 1;
+}
+
+/* Featured AI Card */
+.mega-col-featured {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mega-featured-card {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(236, 72, 153, 0.1));
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.mega-featured-card:hover {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(236, 72, 153, 0.15));
+  border-color: rgba(168, 85, 247, 0.4);
+}
+
+.mega-featured-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(168, 85, 247, 0.2);
+  color: #c084fc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mega-featured-title {
+  color: #f8fafc;
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.mega-featured-desc {
+  color: #94a3b8;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.mega-featured-link {
+  color: #c084fc;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.mega-featured-link:hover {
+  color: #e879f9;
+  gap: 10px;
+}
+
+.mega-all-services-link {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.2s ease;
+}
+
+.mega-all-services-link:hover {
+  color: #f8fafc;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .features-mega-grid {
+    grid-template-columns: 1fr;
+  }
+}
