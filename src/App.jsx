@@ -4,6 +4,7 @@ import Lenis from 'lenis';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import Loader from './components/Loader/Loader';
+import WhatsAppButton from './components/Common/WhatsAppButton';
 import './App.css';
 
 // Lazy-load the Home landing page
@@ -137,6 +138,7 @@ function App() {
         </Routes>
       </Suspense>
 
+      <WhatsAppButton />
       <Footer />
     </div>
   );
