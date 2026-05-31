@@ -18,6 +18,7 @@ const ProjectsPage = lazy(() => import('./pages/Projects'));
 const FAQPage = lazy(() => import('./pages/FAQPage'));
 const ContactUs = lazy(() => import('./pages/ContactUs'));
 const Integrations = lazy(() => import('./pages/Integrations'));
+const FeaturesPage = lazy(() => import('./pages/Features'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -122,6 +123,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/story" element={<Story />} />
+          <Route path="/features" element={<FeaturesPage />} />
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/team" element={<Team />} />
