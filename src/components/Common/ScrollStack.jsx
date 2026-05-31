@@ -75,6 +75,7 @@ const ScrollStack = ({
   );
 
   const updateCardTransforms = useCallback(() => {
+    if (window.innerWidth <= 768) return;
     if (!cardsRef.current.length || isUpdatingRef.current) return;
 
     isUpdatingRef.current = true;
@@ -247,6 +248,8 @@ const ScrollStack = ({
     const scroller = scrollerRef.current;
     if (!scroller) return;
 
+    const isMobile = window.innerWidth <= 768;
+
     const wrappers = Array.from(
       useWindowScroll
         ? document.querySelectorAll('.scroll-stack-card-wrapper')
@@ -262,6 +265,21 @@ const ScrollStack = ({
     wrappersRef.current = wrappers;
     cardsRef.current = cards;
     const transformsCache = lastTransformsRef.current;
+
+    if (isMobile) {
+      // Clean up styles to let CSS flow layout take over on mobile
+      wrappers.forEach((wrapper) => {
+        wrapper.style.marginBottom = '';
+      });
+      cards.forEach((card) => {
+        card.style.transform = '';
+        card.style.filter = '';
+        card.style.willChange = '';
+        card.style.transformOrigin = '';
+        card.style.backfaceVisibility = '';
+      });
+      return;
+    }
 
     wrappers.forEach((wrapper, i) => {
       if (i < wrappers.length - 1) {
