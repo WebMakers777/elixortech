@@ -81,7 +81,7 @@ const Footer = () => {
                         <div className="footer-col branding-col">
                             <div className="footer-logo" onClick={(e) => handleNavClick(e, '/')} style={{ cursor: 'pointer' }}>
                                 <img className="logo-icon" src="/logo.webp" alt="Elixor Technologies Logo" />
-                                <span>Elixor Technologies.</span>
+                                <span className="logo-text">elixor <span className="logo-text-accent">Technologies.</span></span>
                             </div>
                             <p className="footer-branding-desc">
                                 We are the mission control for founders looking to build, validate, and scale MVPs in record time.

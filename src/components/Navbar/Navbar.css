@@ -69,9 +69,26 @@
 }
 
 .logo-icon {
-    height: 48px;
+    height: 56px;
     width: auto;
     object-fit: contain;
+}
+
+.logo-text {
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    font-size: 1.3rem;
+}
+
+.logo-text-accent {
+    font-family: 'Playfair Display', serif;
+    background: linear-gradient(135deg, #C084FC, #A855F7, #8B5CF6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 500;
+    font-style: italic;
 }
 
 .navbar-links {
@@ -149,7 +166,7 @@
     }
 
     .logo-icon {
-        height: 36px;
+        height: 42px;
         width: auto;
     }
 

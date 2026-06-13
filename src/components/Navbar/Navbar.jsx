@@ -110,7 +110,7 @@ const Navbar = () => {
         <nav className="navbar-inner" aria-label="Main navigation">
           <div className="navbar-logo" onClick={(e) => handleNavClick(e, '/')} style={{ cursor: 'pointer' }}>
             <img className="logo-icon" src="/logo.webp" alt="Elixor Technologies Logo" />
-            <span className="logo-text">Elixor Technologies.</span>
+            <span className="logo-text">elixor <span className="logo-text-accent">Technologies.</span></span>
           </div>
 
           <ul className="navbar-links" role="list" aria-label="Page sections">
