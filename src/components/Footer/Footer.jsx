@@ -1,8 +1,36 @@
-import React from 'react';
-import { Github, Twitter, Linkedin, Youtube, ArrowUpRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Github, Instagram, Linkedin, ArrowUpRight } from 'lucide-react';
+import ProcessModal from '../Common/ProcessModal';
 import './Footer.css';
 
 const Footer = () => {
+    const [isProcessOpen, setIsProcessOpen] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const handleNavClick = (e, path) => {
+        e.preventDefault();
+        if (path.startsWith('#')) {
+            if (location.pathname !== '/') {
+                navigate('/' + path);
+            } else {
+                if (window.lenis) {
+                    window.lenis.scrollTo(path, { offset: -80 });
+                } else {
+                    const el = document.querySelector(path);
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        } else {
+            navigate(path);
+            window.scrollTo(0, 0);
+            if (window.lenis) {
+                window.lenis.scrollTo(0, { immediate: true });
+            }
+        }
+    };
+
     return (
         <footer className="footer" id="footer" role="contentinfo" aria-label="Site footer">
             <div className="footer-container">
@@ -24,16 +52,18 @@ const Footer = () => {
                                 technical debt and automatically accelerate your momentum.
                             </p>
                             <div className="cta-actions">
-                                <div className="liquid-badge-wrapper cta-main-btn">
-                                    <div className="liquid-badge">
-                                        <span className="badge-content-text">Get started <ArrowUpRight size={16} /></span>
-                                        <div className="liquid-container">
-                                            <div className="liquid-wave wave-1"></div>
-                                            <div className="liquid-wave wave-2"></div>
+                                <a href="/contact" style={{ textDecoration: 'none' }} onClick={(e) => handleNavClick(e, '/contact')}>
+                                    <div className="liquid-badge-wrapper cta-main-btn">
+                                        <div className="liquid-badge">
+                                            <span className="badge-content-text">Get started <ArrowUpRight size={16} /></span>
+                                            <div className="liquid-container">
+                                                <div className="liquid-wave wave-1"></div>
+                                                <div className="liquid-wave wave-2"></div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <button className="cta-secondary-btn">
+                                </a>
+                                <button className="cta-secondary-btn" onClick={() => setIsProcessOpen(true)}>
                                     Watch how it works <span className="play-icon">▶</span>
                                 </button>
                             </div>
@@ -49,9 +79,9 @@ const Footer = () => {
                     <div className="footer-cols">
                         {/* Column 1: Branding */}
                         <div className="footer-col branding-col">
-                            <div className="footer-logo">
-                                <img className="logo-icon" src="/logo.png" alt="Elixor Technologies Logo" />
-                                <span>Elixor Technologies.</span>
+                            <div className="footer-logo" onClick={(e) => handleNavClick(e, '/')} style={{ cursor: 'pointer' }}>
+                                <img className="logo-icon" src="/logo.webp" alt="Elixor Technologies Logo" />
+                                <span className="logo-text">elixor <span className="logo-text-accent">Technologies.</span></span>
                             </div>
                             <p className="footer-branding-desc">
                                 We are the mission control for founders looking to build, validate, and scale MVPs in record time.
@@ -66,23 +96,22 @@ const Footer = () => {
                         <div className="links-group" role="navigation" aria-label="Footer navigation">
                             <div className="footer-col">
                                 <h4>Agency</h4>
-                                <a href="#home">Home</a>
-                                <a href="#features">Features</a>
-                                <a href="#team">Team</a>
-                                <a href="#contact">Contact</a>
-                                <a href="#blog">Blog</a>
+                                <a href="/" onClick={(e) => handleNavClick(e, '/')}>Home</a>
+                                <a href="/features" onClick={(e) => handleNavClick(e, '/features')}>Features</a>
+                                <a href="#" onClick={(e) => { e.preventDefault(); setIsProcessOpen(true); }}>Process</a>
+                                <a href="/projects" onClick={(e) => handleNavClick(e, '/projects')}>Projects</a>
+                                <a href="/contact" onClick={(e) => handleNavClick(e, '/contact')}>Contact</a>
                             </div>
                             <div className="footer-col">
                                 <h4>Support</h4>
-                                <a href="#docs">Documentation</a>
-                                <a href="#faq">FAQ</a>
-                                <a href="#support">Support</a>
+                                <a href="#docs" onClick={(e) => handleNavClick(e, '#docs')}>Documentation</a>
+                                <a href="/faq" onClick={(e) => handleNavClick(e, '/faq')}>FAQ</a>
+                                <a href="#support" onClick={(e) => handleNavClick(e, '#support')}>Support</a>
                             </div>
                             <div className="footer-col">
                                 <h4>Connect</h4>
-                                <a href="#" className="social-link" aria-label="Follow Elixor Technologies on X (Twitter)" rel="noopener noreferrer"><Twitter size={14} /> X (Twitter)</a>
+                                <a href="#" className="social-link" aria-label="Follow Elixor Technologies on Instagram" rel="noopener noreferrer"><Instagram size={14} /> Instagram</a>
                                 <a href="#" className="social-link" aria-label="Follow Elixor Technologies on LinkedIn" rel="noopener noreferrer"><Linkedin size={14} /> LinkedIn</a>
-                                <a href="#" className="social-link" aria-label="Subscribe to Elixor Technologies on YouTube" rel="noopener noreferrer"><Youtube size={14} /> YouTube</a>
                                 <a href="#" className="social-link" aria-label="View Elixor Technologies GitHub" rel="noopener noreferrer"><Github size={14} /> GitHub</a>
                             </div>
                         </div>
@@ -95,11 +124,14 @@ const Footer = () => {
                         © 2024 Elixor Technologies. All rights reserved
                     </div>
                     <div className="footer-legal">
-                        <a href="#privacy">Privacy Policy</a>
-                        <a href="#terms">Terms of Use</a>
+                        <a href="#privacy" onClick={(e) => handleNavClick(e, '#privacy')}>Privacy Policy</a>
+                        <a href="#terms" onClick={(e) => handleNavClick(e, '#terms')}>Terms of Use</a>
                     </div>
                 </div>
             </div>
+            
+            {/* Interactive Process Walkthrough Modal */}
+            <ProcessModal isOpen={isProcessOpen} onClose={() => setIsProcessOpen(false)} />
         </footer>
     );
 };

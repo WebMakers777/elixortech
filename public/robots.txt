@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.elixortechnologies.com/sitemap.xml
+Sitemap: https://www.elixortech.com/sitemap.xml

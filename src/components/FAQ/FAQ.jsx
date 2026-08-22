@@ -143,18 +143,21 @@ const FAQ = () => {
                 ))}
             </div>
 
-            {/* Bottom CTA */}
+            {/* Have a Question Card */}
             <motion.div
-                className="faq-bottom-cta"
+                className="faq-question-card"
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-50px" }}
                 variants={fadeUp}
             >
-                <MagneticIcon className="faq-help-icon">
-                    <HelpCircle size={20} />
-                </MagneticIcon>
-                <p>Still have questions? <a href="#contact" className="faq-contact-link">Reach out to us</a></p>
+                <div className="faq-question-content">
+                    <h3 className="faq-question-title">Have a question?</h3>
+                    <p className="faq-question-desc">Can't find the answer you're looking for? Reach out to our team.</p>
+                </div>
+                <a href="/contact" className="faq-contact-btn">
+                    Contact Us <MagneticIcon><HelpCircle size={18} /></MagneticIcon>
+                </a>
             </motion.div>
         </section>
     );

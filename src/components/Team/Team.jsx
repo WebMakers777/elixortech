@@ -43,7 +43,7 @@ const Team = () => {
                 >
                     <div className="team-eyebrow"><span className="team-live-dot" /> The team behind your build</div>
                     <div className="team-heading-row">
-                        <h2 id="team-title">Small team.<br /><span>Serious ownership.</span></h2>
+                        <h1 id="team-title">Small team.<br /><span>Serious ownership.</span></h1>
                         <p>
                             You work with one focused product pod from first workshop to launch—
                             not a revolving bench of people learning your product every week.

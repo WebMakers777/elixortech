@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-   <url>
-      <loc>https://www.elixortechnologies.com/</loc>
-      <lastmod>2026-03-25</lastmod>
-      <changefreq>weekly</changefreq>
-      <priority>1.0</priority>
-   </url>
+  <url><loc>https://www.elixortech.com/</loc><lastmod>2026-08-23</lastmod></url>
+  <url><loc>https://www.elixortech.com/story</loc><lastmod>2026-08-23</lastmod></url>
+  <url><loc>https://www.elixortech.com/features</loc><lastmod>2026-08-23</lastmod></url>
+  <url><loc>https://www.elixortech.com/features/web-mobile</loc><lastmod>2026-08-23</lastmod></url>
+  <url><loc>https://www.elixortech.com/features/saas</loc><lastmod>2026-08-23</lastmod></url>
+  <url><loc>https://www.elixortech.com/features/ecommerce</loc><lastmod>2026-08-23</lastmod></url>
+  <url><loc>https://www.elixortech.com/features/cloud-enterprise</loc><lastmod>2026-08-23</lastmod></url>
+  <url><loc>https://www.elixortech.com/features/crm</loc><lastmod>2026-08-23</lastmod></url>
+  <url><loc>https://www.elixortech.com/features/erp</loc><lastmod>2026-08-23</lastmod></url>
+  <url><loc>https://www.elixortech.com/features/portals</loc><lastmod>2026-08-23</lastmod></url>
+  <url><loc>https://www.elixortech.com/features/ai-automation</loc><lastmod>2026-08-23</lastmod></url>
+  <url><loc>https://www.elixortech.com/projects</loc><lastmod>2026-08-23</lastmod></url>
+  <url><loc>https://www.elixortech.com/faq</loc><lastmod>2026-08-23</lastmod></url>
+  <url><loc>https://www.elixortech.com/team</loc><lastmod>2026-08-23</lastmod></url>
+  <url><loc>https://www.elixortech.com/partners</loc><lastmod>2026-08-23</lastmod></url>
+  <url><loc>https://www.elixortech.com/integrations</loc><lastmod>2026-08-23</lastmod></url>
+  <url><loc>https://www.elixortech.com/contact</loc><lastmod>2026-08-23</lastmod></url>
 </urlset>
