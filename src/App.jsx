@@ -5,6 +5,7 @@ import Hero from './components/Hero/Hero';
 import Features from './components/Features/Features';
 import Process from './components/Process/Process';
 import Execution from './components/Execution/Execution';
+import Team from './components/Team/Team';
 import Projects from './components/Projects/Projects';
 import FAQ from './components/FAQ/FAQ';
 import Contact from './components/Contact/Contact';
@@ -87,6 +88,7 @@ function App() {
         <Features />
         <Process />
         <Execution />
+        <Team />
         <Projects />
         <FAQ />
         <Contact />

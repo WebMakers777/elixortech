@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Zap } from 'lucide-react';
+import { Zap, Server, Rocket } from 'lucide-react';
 import MagneticIcon from '../Common/MagneticIcon';
 import './Execution.css';
 
@@ -116,6 +116,59 @@ const Execution = () => {
                     *The Earth moves 54 million kilometers around the Sun in 21 days, our MVPs orbit the market just as fast
                 </p>
             </motion.div>
+
+            <div className="execution-feature-grid" aria-label="How Elixor delivers production-ready products">
+                <article className="execution-feature-card velocity-card">
+                    <img
+                        src="/maximum-velocity.png"
+                        alt="Software engineer working at a dual-monitor development workstation"
+                        loading="lazy"
+                        width="1819"
+                        height="865"
+                    />
+                    <div className="execution-feature-shade" />
+                    <div className="execution-feature-content">
+                        <span className="execution-feature-icon"><Zap size={21} /></span>
+                        <span className="execution-feature-index">01 / SPEED</span>
+                        <h3>Maximum Velocity</h3>
+                        <p>Focused engineering workflows and clean technical decisions keep your product moving without sacrificing quality.</p>
+                    </div>
+                </article>
+
+                <article className="execution-feature-card architecture-card">
+                    <img
+                        src="/solid-architecture.png"
+                        alt="Organized server racks inside a modern data center"
+                        loading="lazy"
+                        width="1536"
+                        height="1024"
+                    />
+                    <div className="execution-feature-shade" />
+                    <div className="execution-feature-content">
+                        <span className="execution-feature-icon"><Server size={21} /></span>
+                        <span className="execution-feature-index">02 / SCALE</span>
+                        <h3>Solid Architecture</h3>
+                        <p>Built on dependable foundations that stay maintainable as traffic, features, and teams grow.</p>
+                    </div>
+                </article>
+
+                <article className="execution-feature-card launch-card">
+                    <img
+                        src="/flawless-launch.png"
+                        alt="Product launch completion displayed in a modern operations workspace"
+                        loading="lazy"
+                        width="1536"
+                        height="1024"
+                    />
+                    <div className="execution-feature-shade" />
+                    <div className="execution-feature-content">
+                        <span className="execution-feature-icon"><Rocket size={21} /></span>
+                        <span className="execution-feature-index">03 / LAUNCH</span>
+                        <h3>Flawless Launch</h3>
+                        <p>Tested, secured, and deployed with a calm release process and a clean handover.</p>
+                    </div>
+                </article>
+            </div>
         </section>
     );
 };

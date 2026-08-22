@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Calendar, Clock, User, Mail, MessageSquare, Loader2, CheckCircle2 } from 'lucide-react';
+import { Send, Calendar, Clock, User, Mail, Phone, MessageSquare, Loader2, CheckCircle2 } from 'lucide-react';
 import MagneticIcon from '../Common/MagneticIcon';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -114,6 +114,23 @@ const Contact = () => {
                         or a scaling enterprise, if you have a product that needs to exist,
                         we have the velocity to build it.
                     </p>
+
+                    <div className="contact-details" aria-label="Contact details">
+                        <a href="tel:+919358101310" className="contact-detail-link" aria-label="Call Elixor Technologies at 9358101310">
+                            <span className="contact-detail-icon"><Phone size={20} /></span>
+                            <span>
+                                <small>Call us</small>
+                                9358101310
+                            </span>
+                        </a>
+                        <a href="mailto:contact@elixortech.com" className="contact-detail-link" aria-label="Email Elixor Technologies at contact@elixortech.com">
+                            <span className="contact-detail-icon"><Mail size={20} /></span>
+                            <span>
+                                <small>Email us</small>
+                                contact@elixortech.com
+                            </span>
+                        </a>
+                    </div>
 
                     <div className="contact-saying">
                         "The best way to predict the future is to invent it."
